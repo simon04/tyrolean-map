@@ -8,6 +8,7 @@ var layers = L.control.layers({}, {}, {
 }).addTo(map);
 
 var attribution = [
+  '<a href="https://github.com/simon04/tyrolean-map">Tyrolean Map</a> (Simon Legner)',
   '<a href="https://www.tirol.gv.at/data/">data.tirol.gv.at</a>',
   '<a href="https://www.tirol.gv.at/data/nutzungsbedingungen/">CC BY 3.0 AT</a>'
 ];
