@@ -37,3 +37,21 @@ var attribution = [
   });
   layers.addBaseLayer(layer, options.title);
 });
+
+[
+  {id: 'Image_1940', title: 'Orthofoto Tirol: 1940'},
+  {id: 'Image_1949-1954', title: 'Orthofoto Tirol: 1949–1954'},
+  {id: 'Image_1970-1982', title: 'Orthofoto Tirol: 1970–1982'},
+  {id: 'Image_1999-2004', title: 'Orthofoto Tirol: 1999–2004'},
+  {id: 'Image_2004-2009', title: 'Orthofoto Tirol: 2004–2009'},
+  {id: 'Image_2009-2012', title: 'Orthofoto Tirol: 2009–2012'},
+  {id: 'Image_2013-2015_RGB', title: 'Orthofoto Tirol: 2013–2015'},
+  {id: 'Image_2013-2015_CIR', title: 'Orthofoto Tirol: 2013–2015 <abbr title="photographisches Infrarot">CIR</abbr>'}
+].map(function(options) {
+  var layer = L.tileLayer.wms('https://gis.tirol.gv.at/arcgis/services/Service_Public/orthofoto/MapServer/WMSServer', {
+    layers: options.id,
+    format: 'image/jpeg',
+    attribution: attribution
+  });
+  layers.addBaseLayer(layer, options.title);
+});
