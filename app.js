@@ -1,9 +1,11 @@
-/* global L */
+/* global window, L */
 'use strict';
 
 var map = L.map('map').setView([47.3, 11.3], 9);
 map.attributionControl.setPrefix(false);
-var layers = L.control.layers({}, {}, {collapsed: false}).addTo(map);
+var layers = L.control.layers({}, {}, {
+  collapsed: window.matchMedia && window.matchMedia('all and (max-width: 700px)').matches
+}).addTo(map);
 
 ['gdi_base_summer', 'gdi_base_winter'].map(function(TileMatrixSet, idx) {
   var layer = L.tileLayer('https://wmts.kartetirol.at/wmts/{TileMatrixSet}/{TileMatrixSet}/{z}/{x}/{y}.jpeg80', {
