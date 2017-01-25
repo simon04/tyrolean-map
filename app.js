@@ -6,6 +6,10 @@ map.attributionControl.setPrefix(false);
 var layers = L.control.layers({}, {}, {
   collapsed: window.matchMedia && window.matchMedia('all and (max-width: 700px)').matches
 }).addTo(map);
+L.control.locate({
+  icon: 'tm-marker',
+  iconLoading: 'tm-marker'
+}).addTo(map);
 
 var attribution = [
   '<a href="https://github.com/simon04/tyrolean-map">Tyrolean Map</a> (Simon Legner)',

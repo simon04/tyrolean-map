@@ -2,3 +2,14 @@ html, body, #map {
   margin: 0px;
   height: 100%;
 }
+
+.tm-marker {
+  /* source: https://www.mapbox.com/maki-icons/ CC0 */
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBkYXRhLW5hbWU9IkxheWVyIDEiIHZpZXdCb3g9IjAgMCAxNSAxNSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNy41LDE0Ljk0MWwtLjQtLjQ5NWMtLjk3My0xLjE4OS00LjktNi41NTYtNC45LTkuMTZBNS4wNjYsNS4wNjYsMCwwLDEsNy4wMzYsMHEuMjIyLS4wMS40NDUsMGE1LjA2Niw1LjA2NiwwLDAsMSw1LjI4Niw0LjgzNnEuMDEuMjI1LDAsLjQ1YzAsMi4yMTMtMi42NjksNi4xMTEtNC42NzgsOC44NTFaTTcuNDgxLjk4NmE0LjA3Nyw0LjA3NywwLDAsMC00LjMsNC4zYzAsMS44MzIsMi43NTksNi4wMzgsNC4yODYsOC4wMzQsMS4yNS0xLjcxLDQuMzE1LTUuOTg5LDQuMzE1LTguMDM0YTQuMDc3LDQuMDc3LDAsMCwwLTQuMy00LjNaIiBkYXRhLW5hbWU9IkxheWVyIDciLz48L3N2Zz4K);
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  background-position: center;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
