@@ -12,35 +12,28 @@ var attribution = [
   '<a href="https://www.tirol.gv.at/data/nutzungsbedingungen/">CC BY 3.0 AT</a>'
 ];
 
-['gdi_base_summer', 'gdi_base_winter'].map(function(TileMatrixSet, idx) {
+[
+  {id: 'gdi_base_summer', title: 'Elektronische Karte Tirol: Sommer'},
+  {id: 'gdi_base_winter', title: 'Elektronische Karte Tirol: Winter'}
+].map(function(options, idx) {
   var layer = L.tileLayer('https://wmts.kartetirol.at/wmts/{TileMatrixSet}/{TileMatrixSet}/{z}/{x}/{y}.jpeg80', {
-    TileMatrixSet: TileMatrixSet,
+    TileMatrixSet: options.id,
     attribution: attribution
   });
   idx === 0 && layer.addTo(map);
-  var title = {
-    gdi_base_summer: 'Elektronische Karte Tirol: Sommer',
-    gdi_base_winter: 'Elektronische Karte Tirol: Winter',
-  }
-  layers.addBaseLayer(layer, title[TileMatrixSet]);
+  layers.addBaseLayer(layer, options.title);
 });
 
 [
-  'Image Schummerung_Gelaendemodell',
-  'Image Schummerung_Oberflaechenmodell',
-  'Image Exposition',
-  'Image Gelaendeneigung_Grad'
-].map(function(id) {
+  {id: 'Image Schummerung_Gelaendemodell', title: 'Gelände Tirol: Geländemodell'},
+  {id: 'Image Schummerung_Oberflaechenmodell', title: 'Gelände Tirol: Oberflächenmodell'},
+  {id: 'Image Exposition', title: 'Gelände Tirol: Exposition'},
+  {id: 'Image Gelaendeneigung_Grad', title: 'Gelände Tirol: Geländeneigung'}
+].map(function(options) {
   var layer = L.tileLayer.wms('https://gis.tirol.gv.at/arcgis/services/Service_Public/terrain/MapServer/WMSServer', {
-    layers: id,
+    layers: options.id,
     format: 'image/jpeg',
     attribution: attribution
   });
-  var title = {
-    'Image Schummerung_Gelaendemodell': 'Gelände Tirol: Geländemodell',
-    'Image Schummerung_Oberflaechenmodell': 'Gelände Tirol: Oberflächenmodell',
-    'Image Exposition': 'Gelände Tirol: Exposition',
-    'Image Gelaendeneigung_Grad': 'Gelände Tirol: Geländeneigung',
-  }
-  layers.addBaseLayer(layer, title[id]);
+  layers.addBaseLayer(layer, options.title);
 });
