@@ -16,6 +16,7 @@ var attribution = [
   '<a href="https://www.tirol.gv.at/data/">data.tirol.gv.at</a>',
   '<a href="https://www.tirol.gv.at/data/nutzungsbedingungen/">CC BY 3.0 AT</a>'
 ];
+var attributionOsm = '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> (ODbL)';
 
 [
   {id: 'gdi_base_summer', title: 'Elektronische Karte Tirol: Sommer'},
@@ -23,7 +24,7 @@ var attribution = [
 ].map(function(options, idx) {
   var layer = L.tileLayer('https://wmts.kartetirol.at/wmts/{TileMatrixSet}/{TileMatrixSet}/{z}/{x}/{y}.jpeg80', {
     TileMatrixSet: options.id,
-    attribution: attribution
+    attribution: [].concat(attribution, [attributionOsm])
   });
   idx === 0 && layer.addTo(map);
   layers.addBaseLayer(layer, options.title);
