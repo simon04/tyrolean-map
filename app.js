@@ -22,6 +22,11 @@ var attributionST = [
   '<a href="http://geoportal.buergernetz.bz.it/">geoportal.buergernetz.bz.it</a>',
   '<a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>'
 ];
+var attributionST_CC0 = [
+  '<a href="https://github.com/simon04/tyrolean-map">Tyrolean Map</a> (Martin Raifer)',
+  '<a href="http://geoportal.buergernetz.bz.it/">geoportal.buergernetz.bz.it</a>',
+  '<a href="https://creativecommons.org/publicdomain/zero/1.0/deed">CC0</a>'
+];
 var attributionOsm = '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> (ODbL)';
 
 var allMapLayers = {};
@@ -79,6 +84,19 @@ var allMapLayers = {};
   var layer = L.tileLayer('http://geoservices.buergernetz.bz.it/geoserver/gwc/service/wmts/?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER={layer}&STYLE=default&TILEMATRIXSET=GoogleMapsCompatible&TILEMATRIX=GoogleMapsCompatible%3A{z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg', {
     layer: options.id,
     attribution: [].concat(attributionST, [attributionOsm])
+  });
+  layers.addBaseLayer(layer, options.title);
+  allMapLayers[options.id] = layer;
+});
+
+[
+  {id: 'DTM-2p5m_Hillshade,DTM_Hillshade_SolarTirol_3857', title: 'DTM South Tyrol'},
+  {id: 'DSM-2p5m_Hillshade,DSM_Hillshade_SolarTirol_3857', title: 'DSM South Tyrol'}
+].forEach(function(options) {
+  var layer = L.tileLayer.wms('https://geoservices.buergernetz.bz.it/geoserver/p_bz-elevation/ows', {
+    layers: options.id,
+    format: 'image/jpeg',
+    attribution: attribution
   });
   layers.addBaseLayer(layer, options.title);
   allMapLayers[options.id] = layer;
