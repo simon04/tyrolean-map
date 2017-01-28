@@ -1,4 +1,4 @@
 Tyrolean Map
 ============
 
-Frontend to various maps published by [Land Tirol](https://www.tirol.gv.at/) as [Open Government Data](https://www.tirol.gv.at/data/).
+Frontend to various maps published by [Land Tirol](https://www.tirol.gv.at/data/) and [South Tyrol](http://geoportal.buergernetz.bz.it/default.asp) as Open Government Data.
