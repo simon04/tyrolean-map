@@ -96,7 +96,7 @@ var allMapLayers = {};
   var layer = L.tileLayer.wms('https://geoservices.buergernetz.bz.it/geoserver/p_bz-elevation/ows', {
     layers: options.id,
     format: 'image/jpeg',
-    attribution: attribution
+    attribution: attributionST_CC0
   });
   layers.addBaseLayer(layer, options.title);
   allMapLayers[options.id] = layer;
