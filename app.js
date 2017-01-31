@@ -35,9 +35,10 @@ var allMapLayers = {};
   {id: 'gdi_base_summer', title: 'Elektronische Karte Tirol: Sommer'},
   {id: 'gdi_base_winter', title: 'Elektronische Karte Tirol: Winter'}
 ].forEach(function(options, idx) {
+  var imprint = '<a href="https://www.tirol.gv.at/statistik-budget/tiris/tiris-geodatendienste/impressum-elektronische-karte-tirol/">Elektronische Karte Tirol</a>';
   var layer = L.tileLayer('https://wmts.kartetirol.at/wmts/{TileMatrixSet}/{TileMatrixSet}/{z}/{x}/{y}.jpeg80', {
     TileMatrixSet: options.id,
-    attribution: [].concat(attribution, [attributionOsm])
+    attribution: [].concat(attribution, [imprint, attributionOsm])
   });
   idx === 0 && layer.addTo(map);
   layers.addBaseLayer(layer, options.title);
