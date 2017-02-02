@@ -80,6 +80,21 @@ var allMapLayers = {};
 });
 
 [
+  {id: 'geolandbasemap', title: 'basemap.at'}
+].forEach(function(options) {
+  var layer = L.tileLayer('https://maps{s}.wien.gv.at/basemap/{layer}/normal/google3857/{z}/{y}/{x}.png', {
+    subdomains: '1234',
+    layer: options.id,
+    attribution: [
+      '<a href="https://www.basemap.at/">basemap.at</a>',
+      '<a href="https://creativecommons.org/licenses/by/3.0/at/deed.de">CC BY 3.0 AT</a>'
+    ]
+  });
+  layers.addBaseLayer(layer, options.title);
+  allMapLayers[options.id] = layer;
+});
+
+[
   {id: 'P_BZ_BASEMAP_TOPO', title: 'South Tyrol Base Map'},
 ].forEach(function(options) {
   var layer = L.tileLayer('http://geoservices.buergernetz.bz.it/geoserver/gwc/service/wmts/?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER={layer}&STYLE=default&TILEMATRIXSET=GoogleMapsCompatible&TILEMATRIX=GoogleMapsCompatible%3A{z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg', {
