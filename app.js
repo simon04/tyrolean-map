@@ -104,9 +104,9 @@ var allMapLayers = {};
 });
 
 [
-  {id: 'Orthophoto_1992_97', title: 'Orthofoto South Tyrol: 1992-97'},
+  {id: 'Orthophoto_1992_97', title: 'Orthofoto South Tyrol: 1992–1997'},
   {id: 'Orthophoto_2000', title: 'Orthofoto South Tyrol: 2000'},
-  {id: 'P_BZ_OF_2011_EPSG3857,P_BZ_OF_2014_EPSG3857', title: 'Orthofoto South Tyrol: 2011-2014'},
+  {id: 'P_BZ_OF_2011_EPSG3857,P_BZ_OF_2014_EPSG3857', title: 'Orthofoto South Tyrol: 2011–2014'},
   {id: 'P_BZ_OF_2014_CIR_EPSG3857', title: 'Orthofoto South Tyrol: 2014 <abbr title="photographisches Infrarot">CIR</abbr>'}
 ].forEach(function(options) {
   var layer = L.tileLayer.wms('https://geoservices.buergernetz.bz.it/geoserver/p_bz-orthoimagery/ows', {
