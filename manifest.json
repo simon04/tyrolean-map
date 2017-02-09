@@ -1,0 +1,16 @@
+{
+  "name": "Tyrolean Map",
+  "short_name": "Tyrolean Map",
+  "start_url": ".",
+  "scope": "/tyrolean-map/",
+  "display": "standalone",
+  "theme_color": "#61646d",
+  "description": "Displays various maps published by Land Tirol and South Tyrol",
+  "icons": [
+    {
+      "src": "tyrolean-map.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }
+  ]
+}
