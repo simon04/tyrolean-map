@@ -67,8 +67,9 @@ var allMapLayers = {};
   {id: 'Image_1999-2004', title: 'Orthofoto Tirol: 1999–2004'},
   {id: 'Image_2004-2009', title: 'Orthofoto Tirol: 2004–2009'},
   {id: 'Image_2009-2012', title: 'Orthofoto Tirol: 2009–2012'},
-  {id: 'Image_2013-2015_RGB', title: 'Orthofoto Tirol: 2013–2015'},
-  {id: 'Image_2013-2015_CIR', title: 'Orthofoto Tirol: 2013–2015 <abbr title="photographisches Infrarot">CIR</abbr>'}
+  {id: 'Image_2013-2015', title: 'Orthofoto Tirol: 2013–2015'},
+  {id: 'Image_Aktuell_RGB', title: 'Orthofoto Tirol: aktuell'},
+  {id: 'Image_Aktuell_CIR', title: 'Orthofoto Tirol: <abbr title="photographisches Infrarot">CIR</abbr> aktuell'}
 ].forEach(function(options) {
   var layer = L.tileLayer.wms('https://gis.tirol.gv.at/arcgis/services/Service_Public/orthofoto/MapServer/WMSServer', {
     layers: options.id,
