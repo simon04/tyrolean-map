@@ -1,0 +1,17 @@
+{
+  "name": "tyrolean-map",
+  "version": "1.0.0",
+  "private": "true",
+  "description": "Frontend to various maps published by Land Tirol and South Tyrol as Open Government Data",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simon04/tyrolean-map.git"
+  },
+  "author": "Simon Legner <Simon.Legner@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/simon04/tyrolean-map/issues"
+  },
+  "homepage": "https://github.com/simon04/tyrolean-map#readme"
+}
