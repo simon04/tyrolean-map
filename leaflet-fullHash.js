@@ -23,7 +23,7 @@
 			var zoom = parseInt(args[0], 10),
 			lat = parseFloat(args[1]),
 			lon = parseFloat(args[2]),
-			layers = (args[3] || '').split(",");
+			layers = decodeURIComponent(args[3] || '');
 			if (isNaN(zoom) || isNaN(lat) || isNaN(lon)) {
 				return false;
 			} else {
@@ -124,13 +124,11 @@
 					options = this.options,
 					that = this;
 				//Add/remove layers
-				if (layers && layers[0] !== '') {
+				if (layers && options[layers]) {
 					this.map.eachLayer(function(layer) {
 						that.map.removeLayer(layer);
 					});
-					layers.forEach(function(element, index, array) {
-						that.map.addLayer(options[element]);
-					});
+					that.map.addLayer(options[layers]);
 				}
 
 				this.movingMap = false;
