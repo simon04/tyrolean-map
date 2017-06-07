@@ -38,6 +38,7 @@ var allMapLayers = {};
   var imprint = '<a href="https://www.tirol.gv.at/statistik-budget/tiris/tiris-geodatendienste/impressum-elektronische-karte-tirol/">Elektronische Karte Tirol</a>';
   var layer = L.tileLayer('https://wmts.kartetirol.at/wmts/{TileMatrixSet}/{TileMatrixSet}/{z}/{x}/{y}.jpeg80', {
     TileMatrixSet: options.id,
+    maxZoom: 18,
     attribution: [].concat(attribution, [imprint, attributionOsm])
   });
   idx === 0 && layer.addTo(map);
@@ -54,6 +55,7 @@ var allMapLayers = {};
   var layer = L.tileLayer.wms('https://gis.tirol.gv.at/arcgis/services/Service_Public/terrain/MapServer/WMSServer', {
     layers: options.id,
     format: 'image/jpeg',
+    maxZoom: 20,
     attribution: attribution
   });
   layers.addBaseLayer(layer, options.title);
@@ -74,6 +76,7 @@ var allMapLayers = {};
   var layer = L.tileLayer.wms('https://gis.tirol.gv.at/arcgis/services/Service_Public/orthofoto/MapServer/WMSServer', {
     layers: options.id,
     format: 'image/jpeg',
+    maxZoom: 20,
     attribution: attribution
   });
   layers.addBaseLayer(layer, options.title);
@@ -86,6 +89,7 @@ var allMapLayers = {};
   var layer = L.tileLayer('https://maps{s}.wien.gv.at/basemap/{layer}/normal/google3857/{z}/{y}/{x}.png', {
     subdomains: '1234',
     layer: options.id,
+    maxZoom: 19,
     attribution: [
       '<a href="https://www.basemap.at/">basemap.at</a>',
       '<a href="https://creativecommons.org/licenses/by/3.0/at/deed.de">CC BY 3.0 AT</a>'
@@ -100,6 +104,7 @@ var allMapLayers = {};
 ].forEach(function(options) {
   var layer = L.tileLayer('http://geoservices.buergernetz.bz.it/geoserver/gwc/service/wmts/?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER={layer}&STYLE=default&TILEMATRIXSET=GoogleMapsCompatible&TILEMATRIX=GoogleMapsCompatible%3A{z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg', {
     layer: options.id,
+    maxZoom: 20,
     attribution: [].concat(attributionST, [attributionOsm])
   });
   layers.addBaseLayer(layer, options.title);
@@ -128,8 +133,7 @@ var allMapLayers = {};
   var layer = L.tileLayer.wms('https://geoservices.buergernetz.bz.it/geoserver/p_bz-orthoimagery/ows', {
     layers: options.id,
     format: 'image/jpeg',
-    //format: 'image/png',
-    //transparent: true,
+    maxZoom: 20,
     attribution: attributionST
   });
   layers.addBaseLayer(layer, options.title);
