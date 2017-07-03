@@ -172,4 +172,11 @@ var allMapLayers = {};
   allMapLayers[options.id] = layer;
 });
 
+var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
+  attribution: attributionOsm
+});
+layers.addBaseLayer(osm, 'OpenStreetMap');
+allMapLayers['OSM'] = osm;
+
 var hash = new L.Hash(map, allMapLayers);
