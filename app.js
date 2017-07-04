@@ -28,7 +28,7 @@ var attribution = [
 var attributionST = [
   '<a href="https://github.com/simon04/tyrolean-map">Tyrolean Map</a> (Martin Raifer)',
   '<a href="http://geoportal.buergernetz.bz.it/">geoportal.buergernetz.bz.it</a>',
-  '<a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>'
+  '<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>'
 ];
 var attributionST_CC0 = [
   '<a href="https://github.com/simon04/tyrolean-map">Tyrolean Map</a> (Martin Raifer)',
@@ -153,10 +153,11 @@ var allMapLayers = {};
 [
   {id: 'Orthophoto_1992_97', title: 'Orthofoto South Tyrol: 1992–1997'},
   {id: 'Orthophoto_2000', title: 'Orthofoto South Tyrol: 2000'},
-  {id: 'P_BZ_OF_2011_EPSG3857,P_BZ_OF_2014_EPSG3857', title: 'Orthofoto South Tyrol: 2011–2014'},
+  {id: 'P_BZ_OF_2011_EPSG3857', title: 'Orthofoto South Tyrol: 2011'},
+  {id: 'P_BZ_OF_2014_2015_EPSG3857', title: 'Orthofoto South Tyrol: 2014–2015'},
   {
-    id: 'P_BZ_OF_2014_CIR_EPSG3857',
-    title: 'Orthofoto South Tyrol: 2014 <abbr title="photographisches Infrarot">CIR</abbr>'
+    id: 'p_bz-orthoimagery:Orthophoto_2011_CIR_EPSG3857,P_BZ_OF_2014_CIR_EPSG3857',
+    title: 'Orthofoto South Tyrol: 2011–2014 <abbr title="photographisches Infrarot">CIR</abbr>'
   }
 ].forEach(function(options) {
   var layer = L.tileLayer.wms(
