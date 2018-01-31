@@ -5,10 +5,9 @@
   "description": "Frontend to various maps published by Land Tirol and South Tyrol as Open Government Data",
   "main": "app.js",
   "scripts": {
-    "fix:style": "npm run prettier -- --write $(git ls-files '*.js')",
+    "fix:style": "prettier --write $(git ls-files '*.js')",
     "test": "npm run test:style",
-    "test:style": "npm run prettier -- --list-different $(git ls-files '*.js')",
-    "prettier": "prettier --print-width 100 --no-bracket-spacing --single-quote"
+    "test:style": "prettier --list-different $(git ls-files '*.js')"
   },
   "repository": {
     "type": "git",
@@ -21,6 +20,6 @@
   },
   "homepage": "https://github.com/simon04/tyrolean-map#readme",
   "devDependencies": {
-    "prettier": "^1.4.2"
+    "prettier": "^1.10.2"
   }
 }

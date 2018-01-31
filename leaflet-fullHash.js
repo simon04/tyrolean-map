@@ -37,7 +37,7 @@
     }
   };
 
-  (L.Hash.formatHash = function(map) {
+  L.Hash.formatHash = function(map) {
     var center = map.getCenter(),
       zoom = map.getZoom(),
       precision = Math.max(0, Math.ceil(Math.log(zoom) / Math.LN2)),
@@ -60,7 +60,9 @@
         '/'
       )
     );
-  }), (L.Hash.prototype = {
+  };
+
+  L.Hash.prototype = {
     map: null,
     lastHash: null,
 
@@ -186,7 +188,8 @@
         }
       }
     }
-  });
+  };
+
   L.hash = function(map, options) {
     return new L.Hash(map, options);
   };
