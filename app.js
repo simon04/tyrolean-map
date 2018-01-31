@@ -4,15 +4,14 @@
 var map = L.map('map').setView([47.3, 11.3], 9);
 
 map.attributionControl.setPrefix(false);
-var layers = L.control
-  .layers(
-    {},
-    {},
-    {
-      collapsed: window.matchMedia && window.matchMedia('all and (max-width: 700px)').matches
-    }
-  )
-  .addTo(map);
+var collapsed = window.matchMedia && window.matchMedia('all and (max-width: 700px)').matches;
+var layers = L.control.layers({}, {}, {collapsed: collapsed}).addTo(map);
+
+L.Control.geocoder({
+  expand: 'click',
+  position: 'topleft'
+}).addTo(map);
+
 L.control
   .locate({
     icon: 'tm-marker',
