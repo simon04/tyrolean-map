@@ -58,8 +58,14 @@ var allMapLayers = {};
 });
 
 [
-  {id: 'Image_Schummerung_Gelaendemodell', title: 'Gelände Tirol: Geländemodell'},
-  {id: 'Image_Schummerung_Oberflaechenmodell', title: 'Gelände Tirol: Oberflächenmodell'},
+  {
+    id: 'Image_Schummerung_Gelaendemodell',
+    title: 'Gelände Tirol: Geländemodell'
+  },
+  {
+    id: 'Image_Schummerung_Oberflaechenmodell',
+    title: 'Gelände Tirol: Oberflächenmodell'
+  },
   {id: 'Image_Exposition', title: 'Gelände Tirol: Exposition'},
   {id: 'Image_Gelaendeneigung_Grad', title: 'Gelände Tirol: Geländeneigung'}
 ].forEach(function(options) {
@@ -134,8 +140,14 @@ var allMapLayers = {};
 });
 
 [
-  {id: 'DTM-2p5m_Hillshade,DTM_Hillshade_SolarTirol_3857', title: 'DTM South Tyrol'},
-  {id: 'DSM-2p5m_Hillshade,DSM_Hillshade_SolarTirol_3857', title: 'DSM South Tyrol'}
+  {
+    id: 'DTM-2p5m_Hillshade,DTM_Hillshade_SolarTirol_3857',
+    title: 'DTM South Tyrol'
+  },
+  {
+    id: 'DSM-2p5m_Hillshade,DSM_Hillshade_SolarTirol_3857',
+    title: 'DSM South Tyrol'
+  }
 ].forEach(function(options) {
   var layer = L.tileLayer.wms(
     'https://geoservices.buergernetz.bz.it/geoserver/p_bz-elevation/ows',
@@ -153,7 +165,10 @@ var allMapLayers = {};
   {id: 'Orthophoto_1992_97', title: 'Orthofoto South Tyrol: 1992–1997'},
   {id: 'Orthophoto_2000', title: 'Orthofoto South Tyrol: 2000'},
   {id: 'P_BZ_OF_2011_EPSG3857', title: 'Orthofoto South Tyrol: 2011'},
-  {id: 'P_BZ_OF_2014_2015_EPSG3857', title: 'Orthofoto South Tyrol: 2014–2015'},
+  {
+    id: 'P_BZ_OF_2014_2015_EPSG3857',
+    title: 'Orthofoto South Tyrol: 2014–2015'
+  },
   {
     id: 'p_bz-orthoimagery:Orthophoto_2011_CIR_EPSG3857,P_BZ_OF_2014_CIR_EPSG3857',
     title: 'Orthofoto South Tyrol: 2011–2014 <abbr title="photographisches Infrarot">CIR</abbr>'
