@@ -58,10 +58,10 @@ var allMapLayers = {};
 });
 
 [
-  {id: 'Image Schummerung_Gelaendemodell', title: 'Gelände Tirol: Geländemodell'},
-  {id: 'Image Schummerung_Oberflaechenmodell', title: 'Gelände Tirol: Oberflächenmodell'},
-  {id: 'Image Exposition', title: 'Gelände Tirol: Exposition'},
-  {id: 'Image Gelaendeneigung_Grad', title: 'Gelände Tirol: Geländeneigung'}
+  {id: 'Image_Schummerung_Gelaendemodell', title: 'Gelände Tirol: Geländemodell'},
+  {id: 'Image_Schummerung_Oberflaechenmodell', title: 'Gelände Tirol: Oberflächenmodell'},
+  {id: 'Image_Exposition', title: 'Gelände Tirol: Exposition'},
+  {id: 'Image_Gelaendeneigung_Grad', title: 'Gelände Tirol: Geländeneigung'}
 ].forEach(function(options) {
   var layer = L.tileLayer.wms(
     'https://gis.tirol.gv.at/arcgis/services/Service_Public/terrain/MapServer/WMSServer',
