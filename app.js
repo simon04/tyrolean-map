@@ -109,16 +109,22 @@ var allMapLayers = {};
   allMapLayers[options.id] = layer;
 });
 
-[{id: 'geolandbasemap', title: 'basemap.at'}].forEach(function(options) {
+[
+  {id: 'geolandbasemap/normal', title: 'basemap.at', format: 'png'},
+  {id: 'bmapgrau/normal', title: 'basemap.at Grau', format: 'png'},
+  {id: 'bmaporthofoto30cm/normal', title: 'basemap.at Orthofoto', format: 'jpg'},
+  {id: 'bmapgelaende/grau', title: 'basemap.at Gelände', format: 'jpg'}
+].forEach(function(options) {
   var layer = L.tileLayer(
-    'https://maps{s}.wien.gv.at/basemap/{layer}/normal/google3857/{z}/{y}/{x}.png',
+    'https://maps{s}.wien.gv.at/basemap/{layer}/google3857/{z}/{y}/{x}.{format}',
     {
       subdomains: '1234',
       layer: options.id,
+      format: options.format,
       maxZoom: 19,
       attribution: [
-        '<a href="https://www.basemap.at/">basemap.at</a>',
-        '<a href="https://creativecommons.org/licenses/by/3.0/at/deed.de">CC BY 3.0 AT</a>'
+        'Grundkarte: <a href="https://www.basemap.at/">basemap.at</a>',
+        '<a href="https://creativecommons.org/licenses/by/4.0/deed.de">CC BY 4.0</a>'
       ]
     }
   );
