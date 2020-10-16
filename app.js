@@ -9,30 +9,30 @@ var layers = L.control.layers({}, {}, {collapsed: collapsed}).addTo(map);
 
 L.Control.geocoder({
   expand: 'click',
-  position: 'topleft'
+  position: 'topleft',
 }).addTo(map);
 
 L.control
   .locate({
     icon: 'tm-marker',
-    iconLoading: 'tm-marker'
+    iconLoading: 'tm-marker',
   })
   .addTo(map);
 
 var attribution = [
   '<a href="https://github.com/simon04/tyrolean-map">Tyrolean Map</a> (Simon Legner)',
   '<a href="https://www.tirol.gv.at/data/">data.tirol.gv.at</a>',
-  '<a href="https://www.tirol.gv.at/data/nutzungsbedingungen/">CC BY 3.0 AT</a>'
+  '<a href="https://www.tirol.gv.at/data/nutzungsbedingungen/">CC BY 3.0 AT</a>',
 ];
 var attributionST = [
   '<a href="https://github.com/simon04/tyrolean-map">Tyrolean Map</a> (Martin Raifer)',
   '<a href="http://geoportal.buergernetz.bz.it/">geoportal.buergernetz.bz.it</a>',
-  '<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>'
+  '<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>',
 ];
 var attributionST_CC0 = [
   '<a href="https://github.com/simon04/tyrolean-map">Tyrolean Map</a> (Martin Raifer)',
   '<a href="http://geoportal.buergernetz.bz.it/">geoportal.buergernetz.bz.it</a>',
-  '<a href="https://creativecommons.org/publicdomain/zero/1.0/deed">CC0</a>'
+  '<a href="https://creativecommons.org/publicdomain/zero/1.0/deed">CC0</a>',
 ];
 var attributionOsm = '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> (ODbL)';
 
@@ -40,8 +40,8 @@ var allMapLayers = {};
 
 [
   {id: 'gdi_base_summer', title: 'Elektronische Karte Tirol: Sommer'},
-  {id: 'gdi_base_winter', title: 'Elektronische Karte Tirol: Winter'}
-].forEach(function(options, idx) {
+  {id: 'gdi_base_winter', title: 'Elektronische Karte Tirol: Winter'},
+].forEach(function (options, idx) {
   var imprint =
     '<a href="https://www.tirol.gv.at/statistik-budget/tiris/tiris-geodatendienste/impressum-elektronische-karte-tirol/">Elektronische Karte Tirol</a>';
   var layer = L.tileLayer(
@@ -49,7 +49,7 @@ var allMapLayers = {};
     {
       TileMatrixSet: options.id,
       maxZoom: 18,
-      attribution: [].concat(attribution, [imprint, attributionOsm])
+      attribution: [].concat(attribution, [imprint, attributionOsm]),
     }
   );
   idx === 0 && layer.addTo(map);
@@ -60,22 +60,22 @@ var allMapLayers = {};
 [
   {
     id: 'Image_Schummerung_Gelaendemodell',
-    title: 'Gelände Tirol: Geländemodell'
+    title: 'Gelände Tirol: Geländemodell',
   },
   {
     id: 'Image_Schummerung_Oberflaechenmodell',
-    title: 'Gelände Tirol: Oberflächenmodell'
+    title: 'Gelände Tirol: Oberflächenmodell',
   },
   {id: 'Image_Exposition', title: 'Gelände Tirol: Exposition'},
-  {id: 'Image_Gelaendeneigung_Grad', title: 'Gelände Tirol: Geländeneigung'}
-].forEach(function(options) {
+  {id: 'Image_Gelaendeneigung_Grad', title: 'Gelände Tirol: Geländeneigung'},
+].forEach(function (options) {
   var layer = L.tileLayer.wms(
     'https://gis.tirol.gv.at/arcgis/services/Service_Public/terrain/MapServer/WMSServer',
     {
       layers: options.id,
       format: 'image/jpeg',
       maxZoom: 20,
-      attribution: attribution
+      attribution: attribution,
     }
   );
   layers.addBaseLayer(layer, options.title);
@@ -93,16 +93,16 @@ var allMapLayers = {};
   {id: 'Image_Aktuell_RGB', title: 'Orthofoto Tirol: aktuell'},
   {
     id: 'Image_Aktuell_CIR',
-    title: 'Orthofoto Tirol: <abbr title="photographisches Infrarot">CIR</abbr> aktuell'
-  }
-].forEach(function(options) {
+    title: 'Orthofoto Tirol: <abbr title="photographisches Infrarot">CIR</abbr> aktuell',
+  },
+].forEach(function (options) {
   var layer = L.tileLayer.wms(
     'https://gis.tirol.gv.at/arcgis/services/Service_Public/orthofoto/MapServer/WMSServer',
     {
       layers: options.id,
       format: 'image/jpeg',
       maxZoom: 20,
-      attribution: attribution
+      attribution: attribution,
     }
   );
   layers.addBaseLayer(layer, options.title);
@@ -113,8 +113,8 @@ var allMapLayers = {};
   {id: 'geolandbasemap/normal', title: 'basemap.at', format: 'png'},
   {id: 'bmapgrau/normal', title: 'basemap.at Grau', format: 'png'},
   {id: 'bmaporthofoto30cm/normal', title: 'basemap.at Orthofoto', format: 'jpg'},
-  {id: 'bmapgelaende/grau', title: 'basemap.at Gelände', format: 'jpg'}
-].forEach(function(options) {
+  {id: 'bmapgelaende/grau', title: 'basemap.at Gelände', format: 'jpg'},
+].forEach(function (options) {
   var layer = L.tileLayer(
     'https://maps{s}.wien.gv.at/basemap/{layer}/google3857/{z}/{y}/{x}.{format}',
     {
@@ -124,21 +124,21 @@ var allMapLayers = {};
       maxZoom: 19,
       attribution: [
         'Grundkarte: <a href="https://www.basemap.at/">basemap.at</a>',
-        '<a href="https://creativecommons.org/licenses/by/4.0/deed.de">CC BY 4.0</a>'
-      ]
+        '<a href="https://creativecommons.org/licenses/by/4.0/deed.de">CC BY 4.0</a>',
+      ],
     }
   );
   layers.addBaseLayer(layer, options.title);
   allMapLayers[options.id] = layer;
 });
 
-[{id: 'P_BZ_BASEMAP_TOPO', title: 'South Tyrol Base Map'}].forEach(function(options) {
+[{id: 'P_BZ_BASEMAP_TOPO', title: 'South Tyrol Base Map'}].forEach(function (options) {
   var layer = L.tileLayer(
     'http://geoservices.buergernetz.bz.it/geoserver/gwc/service/wmts/?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER={layer}&STYLE=default&TILEMATRIXSET=GoogleMapsCompatible&TILEMATRIX=GoogleMapsCompatible%3A{z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg',
     {
       layer: options.id,
       maxZoom: 20,
-      attribution: [].concat(attributionST, [attributionOsm])
+      attribution: [].concat(attributionST, [attributionOsm]),
     }
   );
   layers.addBaseLayer(layer, options.title);
@@ -148,19 +148,19 @@ var allMapLayers = {};
 [
   {
     id: 'DTM-2p5m_Hillshade,DTM_Hillshade_SolarTirol_3857',
-    title: 'DTM South Tyrol'
+    title: 'DTM South Tyrol',
   },
   {
     id: 'DSM-2p5m_Hillshade,DSM_Hillshade_SolarTirol_3857',
-    title: 'DSM South Tyrol'
-  }
-].forEach(function(options) {
+    title: 'DSM South Tyrol',
+  },
+].forEach(function (options) {
   var layer = L.tileLayer.wms(
     'https://geoservices.buergernetz.bz.it/geoserver/p_bz-elevation/ows',
     {
       layers: options.id,
       format: 'image/jpeg',
-      attribution: attributionST_CC0
+      attribution: attributionST_CC0,
     }
   );
   layers.addBaseLayer(layer, options.title);
@@ -173,20 +173,20 @@ var allMapLayers = {};
   {id: 'P_BZ_OF_2011_EPSG3857', title: 'Orthofoto South Tyrol: 2011'},
   {
     id: 'P_BZ_OF_2014_2015_EPSG3857',
-    title: 'Orthofoto South Tyrol: 2014–2015'
+    title: 'Orthofoto South Tyrol: 2014–2015',
   },
   {
     id: 'p_bz-orthoimagery:Orthophoto_2011_CIR_EPSG3857,P_BZ_OF_2014_CIR_EPSG3857',
-    title: 'Orthofoto South Tyrol: 2011–2014 <abbr title="photographisches Infrarot">CIR</abbr>'
-  }
-].forEach(function(options) {
+    title: 'Orthofoto South Tyrol: 2011–2014 <abbr title="photographisches Infrarot">CIR</abbr>',
+  },
+].forEach(function (options) {
   var layer = L.tileLayer.wms(
     'https://geoservices.buergernetz.bz.it/geoserver/p_bz-orthoimagery/ows',
     {
       layers: options.id,
       format: 'image/jpeg',
       maxZoom: 20,
-      attribution: attributionST
+      attribution: attributionST,
     }
   );
   layers.addBaseLayer(layer, options.title);
@@ -195,7 +195,7 @@ var allMapLayers = {};
 
 var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
-  attribution: attributionOsm
+  attribution: attributionOsm,
 });
 layers.addBaseLayer(osm, 'OpenStreetMap');
 allMapLayers['OSM'] = osm;
