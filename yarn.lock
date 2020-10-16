@@ -83,6 +83,11 @@ end-of-stream@^1.1.0:
   dependencies:
     once "^1.4.0"
 
+esbuild@^0.7.15:
+  version "0.7.15"
+  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.7.15.tgz#b50fe68fa12f41f42afab1c49a2b4524de5b6431"
+  integrity sha512-tgvd7miwyQVAzlDIcrs9vwoVEL33NmDRggTwKSkcdTj25BOfSWoIUuFXG4vvHRQTkJDk2uHJSi7bhBdPmMzodA==
+
 execa@^4.0.0:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/execa/-/execa-4.0.3.tgz#0a34dabbad6d66100bd6f2c576c8669403f317f2"
@@ -137,6 +142,23 @@ isexe@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
   integrity sha1-6PvzdNxVb/iUehDcsFctYz8s+hA=
+
+leaflet-control-geocoder@^1.13.0:
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/leaflet-control-geocoder/-/leaflet-control-geocoder-1.13.0.tgz#c84cffd8f64a8f0b1091a59c3b59c03d5dcc583e"
+  integrity sha512-mgYGx/2WA5CcvhP+IJtw7VvJwSGAe5zxX+TKe6ruYkLj2W5I5V/K/nQiLvsUtqifBojBGoKIPNZ8m0mXJNIudg==
+  optionalDependencies:
+    open-location-code "^1.0.0"
+
+leaflet.locatecontrol@^0.72.0:
+  version "0.72.0"
+  resolved "https://registry.yarnpkg.com/leaflet.locatecontrol/-/leaflet.locatecontrol-0.72.0.tgz#7de5c109a0e10a928bae85e4996e5efa49a3c905"
+  integrity sha512-enAf10UG9Z1bV0siTP/+vG/ZVncDqSA3V8c6iZ3s6KWL5Ngkk4A4mk9Ssefj46ey98I9HSYWqoS+k2Y7EaKjwQ==
+
+leaflet@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.7.1.tgz#10d684916edfe1bf41d688a3b97127c0322a2a19"
+  integrity sha512-/xwPEBidtg69Q3HlqPdU3DnrXQOvQU/CCHA1tcDQVzOwm91YMYaILjNp7L4Eaw5Z4sOYdbBz6koWyibppd8Zqw==
 
 locate-path@^5.0.0:
   version "5.0.0"
@@ -198,6 +220,11 @@ onetime@^5.1.0:
   integrity sha512-kbpaSSGJTWdAY5KPVeMOKXSrPtr8C8C7wodJbcsd51jRnmD+GZu8Y0VoU6Dm5Z4vWr0Ig/1NKuWRKf7j5aaYSg==
   dependencies:
     mimic-fn "^2.1.0"
+
+open-location-code@^1.0.0:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/open-location-code/-/open-location-code-1.0.3.tgz#5ea1a34ee5221c6cafa04392e1bd906fd7488f7e"
+  integrity sha1-XqGjTuUiHGyvoEOS4b2Qb9dIj34=
 
 p-limit@^2.2.0:
   version "2.3.0"

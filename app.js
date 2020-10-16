@@ -1,5 +1,11 @@
-/* global window, L */
-'use strict';
+import 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import 'leaflet-control-geocoder';
+import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
+import 'leaflet.locatecontrol';
+import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css';
+import './leaflet-fullHash';
+import './style.css';
 
 var map = L.map('map').setView([47.3, 11.3], 9);
 

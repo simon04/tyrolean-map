@@ -5,6 +5,7 @@
   "description": "Frontend to various maps published by Land Tirol and South Tyrol as Open Government Data",
   "main": "app.js",
   "scripts": {
+    "build": "esbuild --bundle app.js --outdir=dist/  --target=es6 --minify --sourcemap --external:images/geocoder.png --external:images/throbber.gif --external:images/layers.png --external:images/layers-2x.png --external:images/marker-icon.png",
     "fix:style": "prettier --write $(git ls-files '*.js' '*.html')",
     "test": "prettier --check $(git ls-files '*.js' '*.html')"
   },
@@ -18,7 +19,13 @@
     "url": "https://github.com/simon04/tyrolean-map/issues"
   },
   "homepage": "https://github.com/simon04/tyrolean-map#readme",
+  "dependencies": {
+    "leaflet": "^1.7.1",
+    "leaflet-control-geocoder": "^1.13.0",
+    "leaflet.locatecontrol": "^0.72.0"
+  },
   "devDependencies": {
+    "esbuild": "^0.7.15",
     "prettier": "^2.1.2",
     "pretty-quick": "^3.1.0"
   }
