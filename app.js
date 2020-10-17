@@ -96,6 +96,7 @@ var allMapLayers = {};
   {id: 'Image_2004-2009', title: 'Orthofoto Tirol: 2004–2009'},
   {id: 'Image_2009-2012', title: 'Orthofoto Tirol: 2009–2012'},
   {id: 'Image_2013-2015', title: 'Orthofoto Tirol: 2013–2015'},
+  {id: 'Image_2016', title: 'Orthofoto Tirol: 2016'},
   {id: 'Image_Aktuell_RGB', title: 'Orthofoto Tirol: aktuell'},
   {
     id: 'Image_Aktuell_CIR',
