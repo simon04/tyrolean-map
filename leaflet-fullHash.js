@@ -47,13 +47,11 @@ export default class LeafletHash {
 
     const options = this.options;
     //Check active layers
-    for (const key in options) {
-      if (options.hasOwnProperty(key)) {
-        if (map.hasLayer(options[key])) {
-          layers.push(key);
-        }
+    Object.keys(options).forEach((key) => {
+      if (map.hasLayer(options[key])) {
+        layers.push(key);
       }
-    }
+    });
 
     return (
       '#' +
@@ -113,7 +111,9 @@ export default class LeafletHash {
       this.movingMap = true;
 
       this.map.setView(parsed.center, parsed.zoom);
-      const layers = parsed.layers, options = this.options, that = this;
+      const layers = parsed.layers,
+        options = this.options,
+        that = this;
       //Add/remove layers
       if (layers && options[layers]) {
         this.map.eachLayer((layer) => that.map.removeLayer(layer));
