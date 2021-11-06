@@ -1,2 +1,4 @@
 dist/app.*
+dist/*.png
+dist/*.gif
 node_modules/

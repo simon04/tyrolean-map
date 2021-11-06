@@ -5,7 +5,7 @@
   "description": "Frontend to various maps published by Land Tirol and South Tyrol as Open Government Data",
   "main": "app.js",
   "scripts": {
-    "build": "esbuild --bundle app.js --outdir=dist/  --target=es6 --minify --sourcemap --external:images/geocoder.png --external:images/throbber.gif --external:images/layers.png --external:images/layers-2x.png --external:images/marker-icon.png",
+    "build": "esbuild --bundle app.js --outdir=dist/ --target=es6 --minify --sourcemap --loader:.png=file --loader:.gif=file",
     "fix:style": "prettier --write $(git ls-files '*.js' '*.html')",
     "test": "prettier --check $(git ls-files '*.js' '*.html')"
   },

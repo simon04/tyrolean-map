@@ -13,6 +13,16 @@ map.attributionControl.setPrefix(false);
 const collapsed = window.matchMedia && window.matchMedia('all and (max-width: 700px)').matches;
 const layers = L.control.layers({}, {}, {collapsed: collapsed}).addTo(map);
 
+delete L.Icon.Default.prototype._getIconUrl;
+import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
+import iconUrl from 'leaflet/dist/images/marker-icon.png';
+import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl,
+  iconUrl,
+  shadowUrl,
+});
+
 L.Control.geocoder({
   position: 'topleft',
 }).addTo(map);
