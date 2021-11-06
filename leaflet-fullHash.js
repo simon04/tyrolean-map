@@ -154,16 +154,4 @@ export default class LeafletHash {
     L.DomEvent.removeListener(window, 'hashchange', this.onHashChange);
     this.isListening = false;
   }
-
-  _keyByValue(obj, value) {
-    for (var key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        if (obj[key] === value) {
-          return key;
-        } else {
-          return null;
-        }
-      }
-    }
-  }
 }
