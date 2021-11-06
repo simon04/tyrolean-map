@@ -1,11 +1,6 @@
 // slightly modified version of https://github.com/KoGor/leaflet-fullHash by "KoGor"
 import * as L from 'leaflet';
 
-var HAS_HASHCHANGE = (function () {
-  var doc_mode = window.documentMode;
-  return 'onhashchange' in window && (doc_mode === undefined || doc_mode > 7);
-})();
-
 export default class LeafletHash {
   constructor(map, options) {
     this.map = null;
@@ -14,7 +9,6 @@ export default class LeafletHash {
     this.changeDefer = 100;
     this.changeTimeout = null;
     this.isListening = false;
-    this.hashChangeInterval = null;
     this.onHashChange = L.Util.bind(this.onHashChange, this);
     if (map) {
       this.init(map, options);
@@ -151,24 +145,13 @@ export default class LeafletHash {
 
   startListening() {
     this.map.on('moveend layeradd layerremove', this.onMapMove, this);
-
-    if (HAS_HASHCHANGE) {
-      L.DomEvent.addListener(window, 'hashchange', this.onHashChange);
-    } else {
-      clearInterval(this.hashChangeInterval);
-      this.hashChangeInterval = setInterval(this.onHashChange, 50);
-    }
+    L.DomEvent.addListener(window, 'hashchange', this.onHashChange);
     this.isListening = true;
   }
 
   stopListening() {
     this.map.off('moveend layeradd layerremove', this.onMapMove, this);
-
-    if (HAS_HASHCHANGE) {
-      L.DomEvent.removeListener(window, 'hashchange', this.onHashChange);
-    } else {
-      clearInterval(this.hashChangeInterval);
-    }
+    L.DomEvent.removeListener(window, 'hashchange', this.onHashChange);
     this.isListening = false;
   }
 
