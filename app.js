@@ -14,7 +14,6 @@ const collapsed = window.matchMedia && window.matchMedia('all and (max-width: 70
 const layers = L.control.layers({}, {}, {collapsed: collapsed}).addTo(map);
 
 L.Control.geocoder({
-  expand: 'click',
   position: 'topleft',
 }).addTo(map);
 
