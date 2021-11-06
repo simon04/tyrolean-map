@@ -19,9 +19,9 @@ export default class LeafletHash {
     if (hash.indexOf('#') === 0) {
       hash = hash.substr(1);
     }
-    var args = hash.split('/');
+    const args = hash.split('/');
     if (args.length >= 3) {
-      var zoom = parseInt(args[0], 10),
+      const zoom = parseInt(args[0], 10),
         lat = parseFloat(args[1]),
         lon = parseFloat(args[2]),
         layers = decodeURIComponent(args[3] || '');
@@ -40,14 +40,14 @@ export default class LeafletHash {
   }
 
   formatHash(map) {
-    var center = map.getCenter(),
+    const center = map.getCenter(),
       zoom = map.getZoom(),
       precision = Math.max(0, Math.ceil(Math.log(zoom) / Math.LN2)),
       layers = [];
 
-    var options = this.options;
+    const options = this.options;
     //Check active layers
-    for (var key in options) {
+    for (const key in options) {
       if (options.hasOwnProperty(key)) {
         if (map.hasLayer(options[key])) {
           layers.push(key);
@@ -96,7 +96,7 @@ export default class LeafletHash {
       return false;
     }
 
-    var hash = this.formatHash(this.map);
+    const hash = this.formatHash(this.map);
     if (this.lastHash != hash) {
       location.replace(hash);
       this.lastHash = hash;
@@ -104,18 +104,16 @@ export default class LeafletHash {
   }
 
   update() {
-    var hash = location.hash;
+    const hash = location.hash;
     if (hash === this.lastHash) {
       return;
     }
-    var parsed = this.parseHash(hash);
+    const parsed = this.parseHash(hash);
     if (parsed) {
       this.movingMap = true;
 
       this.map.setView(parsed.center, parsed.zoom);
-      var layers = parsed.layers,
-        options = this.options,
-        that = this;
+      const layers = parsed.layers, options = this.options, that = this;
       //Add/remove layers
       if (layers && options[layers]) {
         this.map.eachLayer(function (layer) {
@@ -135,7 +133,7 @@ export default class LeafletHash {
     // throttle calls to update() so that they only happen every
     // `changeDefer` ms
     if (!this.changeTimeout) {
-      var that = this;
+      const that = this;
       this.changeTimeout = setTimeout(function () {
         that.update();
         that.changeTimeout = null;
