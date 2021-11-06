@@ -1,10 +1,10 @@
-import 'leaflet';
+import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-control-geocoder';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
 import 'leaflet.locatecontrol';
 import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css';
-import './leaflet-fullHash';
+import LeafletHash from './leaflet-fullHash';
 import './style.css';
 
 var map = L.map('map').setView([47.3, 11.3], 9);
@@ -207,4 +207,4 @@ var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 layers.addBaseLayer(osm, 'OpenStreetMap');
 allMapLayers['OSM'] = osm;
 
-var hash = new L.Hash(map, allMapLayers);
+new LeafletHash(map, allMapLayers);
