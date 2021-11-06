@@ -116,9 +116,7 @@ export default class LeafletHash {
       const layers = parsed.layers, options = this.options, that = this;
       //Add/remove layers
       if (layers && options[layers]) {
-        this.map.eachLayer(function (layer) {
-          that.map.removeLayer(layer);
-        });
+        this.map.eachLayer((layer) => that.map.removeLayer(layer));
         that.map.addLayer(options[layers]);
       }
 
@@ -134,7 +132,7 @@ export default class LeafletHash {
     // `changeDefer` ms
     if (!this.changeTimeout) {
       const that = this;
-      this.changeTimeout = setTimeout(function () {
+      this.changeTimeout = setTimeout(() => {
         that.update();
         that.changeTimeout = null;
       }, this.changeDefer);

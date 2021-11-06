@@ -47,7 +47,7 @@ const allMapLayers = {};
 [
   {id: 'gdi_base_summer', title: 'Elektronische Karte Tirol: Sommer'},
   {id: 'gdi_base_winter', title: 'Elektronische Karte Tirol: Winter'},
-].forEach(function (options, idx) {
+].forEach((options, idx) => {
   const imprint =
     '<a href="https://www.tirol.gv.at/statistik-budget/tiris/tiris-geodatendienste/impressum-elektronische-karte-tirol/">Elektronische Karte Tirol</a>';
   const layer = L.tileLayer(
@@ -74,7 +74,7 @@ const allMapLayers = {};
   },
   {id: 'Image_Exposition', title: 'Gelände Tirol: Exposition'},
   {id: 'Image_Gelaendeneigung_Grad', title: 'Gelände Tirol: Geländeneigung'},
-].forEach(function (options) {
+].forEach((options) => {
   const layer = L.tileLayer.wms(
     'https://gis.tirol.gv.at/arcgis/services/Service_Public/terrain/MapServer/WMSServer',
     {
@@ -102,7 +102,7 @@ const allMapLayers = {};
     id: 'Image_Aktuell_CIR',
     title: 'Orthofoto Tirol: <abbr title="photographisches Infrarot">CIR</abbr> aktuell',
   },
-].forEach(function (options) {
+].forEach((options) => {
   const layer = L.tileLayer.wms(
     'https://gis.tirol.gv.at/arcgis/services/Service_Public/orthofoto/MapServer/WMSServer',
     {
@@ -121,7 +121,7 @@ const allMapLayers = {};
   {id: 'bmapgrau/normal', title: 'basemap.at Grau', format: 'png'},
   {id: 'bmaporthofoto30cm/normal', title: 'basemap.at Orthofoto', format: 'jpg'},
   {id: 'bmapgelaende/grau', title: 'basemap.at Gelände', format: 'jpg'},
-].forEach(function (options) {
+].forEach((options) => {
   const layer = L.tileLayer(
     'https://maps{s}.wien.gv.at/basemap/{layer}/google3857/{z}/{y}/{x}.{format}',
     {
@@ -139,7 +139,7 @@ const allMapLayers = {};
   allMapLayers[options.id] = layer;
 });
 
-[{id: 'P_BZ_BASEMAP_TOPO', title: 'South Tyrol Base Map'}].forEach(function (options) {
+[{id: 'P_BZ_BASEMAP_TOPO', title: 'South Tyrol Base Map'}].forEach((options) => {
   const layer = L.tileLayer(
     'http://geoservices.buergernetz.bz.it/geoserver/gwc/service/wmts/?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER={layer}&STYLE=default&TILEMATRIXSET=GoogleMapsCompatible&TILEMATRIX=GoogleMapsCompatible%3A{z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg',
     {
@@ -161,7 +161,7 @@ const allMapLayers = {};
     id: 'DSM-2p5m_Hillshade,DSM_Hillshade_SolarTirol_3857',
     title: 'DSM South Tyrol',
   },
-].forEach(function (options) {
+].forEach((options) => {
   const layer = L.tileLayer.wms(
     'https://geoservices.buergernetz.bz.it/geoserver/p_bz-elevation/ows',
     {
@@ -186,7 +186,7 @@ const allMapLayers = {};
     id: 'p_bz-orthoimagery:Orthophoto_2011_CIR_EPSG3857,P_BZ_OF_2014_CIR_EPSG3857',
     title: 'Orthofoto South Tyrol: 2011–2014 <abbr title="photographisches Infrarot">CIR</abbr>',
   },
-].forEach(function (options) {
+].forEach((options) => {
   const layer = L.tileLayer.wms(
     'https://geoservices.buergernetz.bz.it/geoserver/p_bz-orthoimagery/ows',
     {
