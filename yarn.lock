@@ -143,10 +143,10 @@ isexe@^2.0.0:
   resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
   integrity sha1-6PvzdNxVb/iUehDcsFctYz8s+hA=
 
-leaflet-control-geocoder@^1.13.0:
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/leaflet-control-geocoder/-/leaflet-control-geocoder-1.13.0.tgz#c84cffd8f64a8f0b1091a59c3b59c03d5dcc583e"
-  integrity sha512-mgYGx/2WA5CcvhP+IJtw7VvJwSGAe5zxX+TKe6ruYkLj2W5I5V/K/nQiLvsUtqifBojBGoKIPNZ8m0mXJNIudg==
+leaflet-control-geocoder@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/leaflet-control-geocoder/-/leaflet-control-geocoder-2.3.0.tgz#4212d6d67f73eeda3b900773cd2f229b2fe66aa8"
+  integrity sha512-Zi5cebDsfAq6B0ZilDGn/W5oNM8pQu6cltEHBxfR56XnN3f/Lmez1+qrdyRY6oTlP740caBHHCmd35Z/eif7/w==
   optionalDependencies:
     open-location-code "^1.0.0"
 
