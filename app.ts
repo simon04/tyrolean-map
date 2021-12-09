@@ -43,12 +43,12 @@ const attribution = [
 ];
 const attributionST = [
   '<a href="https://github.com/simon04/tyrolean-map">Tyrolean Map</a> (Martin Raifer)',
-  '<a href="http://geoportal.buergernetz.bz.it/">geoportal.buergernetz.bz.it</a>',
+  '<a href="https://geoportal.buergernetz.bz.it/">geoportal.buergernetz.bz.it</a>',
   '<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>',
 ];
 const attributionST_CC0 = [
   '<a href="https://github.com/simon04/tyrolean-map">Tyrolean Map</a> (Martin Raifer)',
-  '<a href="http://geoportal.buergernetz.bz.it/">geoportal.buergernetz.bz.it</a>',
+  '<a href="https://geoportal.buergernetz.bz.it/">geoportal.buergernetz.bz.it</a>',
   '<a href="https://creativecommons.org/publicdomain/zero/1.0/deed">CC0</a>',
 ];
 const attributionOsm = '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> (ODbL)';
@@ -146,7 +146,7 @@ const allMapLayers = {};
 
 [{id: 'P_BZ_BASEMAP_TOPO', title: 'South Tyrol Base Map'}].forEach(({id, title}) => {
   const layer = L.tileLayer(
-    `http://geoservices.buergernetz.bz.it/geoserver/gwc/service/wmts/?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${id}&STYLE=default&TILEMATRIXSET=GoogleMapsCompatible&TILEMATRIX=GoogleMapsCompatible%3A{z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg`,
+    `https://geoservices.buergernetz.bz.it/geoserver/gwc/service/wmts/?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${id}&STYLE=default&TILEMATRIXSET=GoogleMapsCompatible&TILEMATRIX=GoogleMapsCompatible%3A{z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg`,
     {
       maxZoom: 20,
       attribution: [...attributionST, attributionOsm].join(', '),
