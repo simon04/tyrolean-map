@@ -2,20 +2,21 @@
 import * as L from 'leaflet';
 
 export default class LeafletHash {
-  constructor(map, options) {
-    this.map = null;
-    this.lastHash = null;
-    this.movingMap = false;
-    this.changeDefer = 100;
-    this.changeTimeout = null;
-    this.isListening = false;
+  map: L.Map = null;
+  options: Record<string, L.Layer>;
+  lastHash = null;
+  movingMap = false;
+  changeDefer = 100;
+  changeTimeout = null;
+  isListening = false;
+  constructor(map: L.Map, options: Record<string, L.Layer>) {
     this.onHashChange = L.Util.bind(this.onHashChange, this);
     if (map) {
       this.init(map, options);
     }
   }
 
-  parseHash(hash) {
+  parseHash(hash: string) {
     if (hash.indexOf('#') === 0) {
       hash = hash.substr(1);
     }
@@ -39,7 +40,7 @@ export default class LeafletHash {
     }
   }
 
-  formatHash(map) {
+  formatHash(map: L.Map) {
     const center = map.getCenter(),
       zoom = map.getZoom(),
       precision = Math.max(0, Math.ceil(Math.log(zoom) / Math.LN2)),
@@ -61,7 +62,7 @@ export default class LeafletHash {
     );
   }
 
-  init(map, options) {
+  init(map: L.Map, options: Record<string, L.Layer>) {
     this.map = map;
     L.Util.setOptions(this, options);
 
@@ -90,7 +91,7 @@ export default class LeafletHash {
     // bail if we're moving the map (updating from a hash),
     // or if the map is not yet loaded
 
-    if (this.movingMap || !this.map._loaded) {
+    if (this.movingMap || !(this.map as any)._loaded) {
       return false;
     }
 
@@ -122,7 +123,7 @@ export default class LeafletHash {
 
       this.movingMap = false;
     } else {
-      this.onMapMove(this.map);
+      this.onMapMove();
     }
   }
 
@@ -141,13 +142,13 @@ export default class LeafletHash {
 
   startListening() {
     this.map.on('moveend layeradd layerremove', this.onMapMove, this);
-    L.DomEvent.addListener(window, 'hashchange', this.onHashChange);
+    window.addEventListener('hashchange', this.onHashChange);
     this.isListening = true;
   }
 
   stopListening() {
     this.map.off('moveend layeradd layerremove', this.onMapMove, this);
-    L.DomEvent.removeListener(window, 'hashchange', this.onHashChange);
+    window.removeEventListener('hashchange', this.onHashChange);
     this.isListening = false;
   }
 }
