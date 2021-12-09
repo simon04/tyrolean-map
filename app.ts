@@ -1,6 +1,6 @@
 import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import 'leaflet-control-geocoder';
+import {GeocoderControl} from 'leaflet-control-geocoder/src/control';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
 import 'leaflet.locatecontrol';
 import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css';
@@ -23,11 +23,9 @@ L.Icon.Default.mergeOptions({
   shadowUrl,
 });
 
-(L.Control as any)
-  .geocoder({
-    position: 'topleft',
-  })
-  .addTo(map);
+new GeocoderControl({
+  position: 'topleft',
+}).addTo(map);
 
 L.control
   .locate({
