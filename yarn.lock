@@ -7,7 +7,14 @@
   resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.8.tgz#30744afdb385e2945e22f3b033f897f76b1f12ca"
   integrity sha512-1rkryxURpr6aWP7R786/UQOkJ3PcpQiWkAXBmdWc7ryFWqN6a4xfK7BtjXvFBKO9LjQ+MWQSWxYeZX1OApnArA==
 
-"@types/leaflet@^1.7.6":
+"@types/leaflet.locatecontrol@^0.74.0":
+  version "0.74.0"
+  resolved "https://registry.yarnpkg.com/@types/leaflet.locatecontrol/-/leaflet.locatecontrol-0.74.0.tgz#bd08448705ff14568e3a6f457aafb26d9f6bd880"
+  integrity sha512-FxJcd5/8CvjQARz86QY+ZquKORvaFZYObYFC0fK/N/4kXTD8dhS+KUxjZCPVz54K/jWkiOvzHV2xqfxnPKf/Iw==
+  dependencies:
+    "@types/leaflet" "*"
+
+"@types/leaflet@*", "@types/leaflet@^1.7.6":
   version "1.7.6"
   resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.7.6.tgz#6580f4babb648972c5af3abc3d66866753fa9311"
   integrity sha512-Emkz3V08QnlelSbpT46OEAx+TBZYTOX2r1yM7W+hWg5+djHtQ1GbEXBDRLaqQDOYcDI51Ss0ayoqoKD4CtLUDA==

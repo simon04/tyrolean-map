@@ -13,7 +13,7 @@ map.attributionControl.setPrefix(false);
 const collapsed = window.matchMedia && window.matchMedia('all and (max-width: 700px)').matches;
 const layers = L.control.layers({}, {}, {collapsed: collapsed}).addTo(map);
 
-delete L.Icon.Default.prototype._getIconUrl;
+delete (L.Icon.Default.prototype as any)._getIconUrl;
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
@@ -23,9 +23,11 @@ L.Icon.Default.mergeOptions({
   shadowUrl,
 });
 
-L.Control.geocoder({
-  position: 'topleft',
-}).addTo(map);
+(L.Control as any)
+  .geocoder({
+    position: 'topleft',
+  })
+  .addTo(map);
 
 L.control
   .locate({
@@ -59,14 +61,10 @@ const allMapLayers = {};
 ].forEach(({id, title}, idx) => {
   const imprint =
     '<a href="https://www.tirol.gv.at/statistik-budget/tiris/tiris-geodatendienste/impressum-elektronische-karte-tirol/">Elektronische Karte Tirol</a>';
-  const layer = L.tileLayer(
-    'https://wmts.kartetirol.at/wmts/{TileMatrixSet}/{TileMatrixSet}/{z}/{x}/{y}.jpeg80',
-    {
-      TileMatrixSet: id,
-      maxZoom: 18,
-      attribution: [].concat(attribution, [imprint, attributionOsm]),
-    }
-  );
+  const layer = L.tileLayer(`https://wmts.kartetirol.at/wmts/${id}/${id}/{z}/{x}/{y}.jpeg80`, {
+    maxZoom: 18,
+    attribution: [...attribution, imprint, attributionOsm].join(', '),
+  });
   idx === 0 && layer.addTo(map);
   layers.addBaseLayer(layer, title);
   allMapLayers[id] = layer;
@@ -90,7 +88,7 @@ const allMapLayers = {};
       layers: id,
       format: 'image/jpeg',
       maxZoom: 20,
-      attribution: attribution,
+      attribution: attribution.join(', '),
     }
   );
   layers.addBaseLayer(layer, title);
@@ -118,7 +116,7 @@ const allMapLayers = {};
       layers: id,
       format: 'image/jpeg',
       maxZoom: 20,
-      attribution: attribution,
+      attribution: attribution.join(', '),
     }
   );
   layers.addBaseLayer(layer, title);
@@ -132,16 +130,14 @@ const allMapLayers = {};
   {id: 'bmapgelaende/grau', title: 'basemap.at Gelände', format: 'jpg'},
 ].forEach(({id, title, format}) => {
   const layer = L.tileLayer(
-    'https://maps{s}.wien.gv.at/basemap/{layer}/google3857/{z}/{y}/{x}.{format}',
+    `https://maps{s}.wien.gv.at/basemap/${id}/google3857/{z}/{y}/{x}.${format}`,
     {
       subdomains: '1234',
-      layer: id,
-      format: format,
       maxZoom: 19,
       attribution: [
         'Grundkarte: <a href="https://www.basemap.at/">basemap.at</a>',
         '<a href="https://creativecommons.org/licenses/by/4.0/deed.de">CC BY 4.0</a>',
-      ],
+      ].join(', '),
     }
   );
   layers.addBaseLayer(layer, title);
@@ -150,11 +146,10 @@ const allMapLayers = {};
 
 [{id: 'P_BZ_BASEMAP_TOPO', title: 'South Tyrol Base Map'}].forEach(({id, title}) => {
   const layer = L.tileLayer(
-    'http://geoservices.buergernetz.bz.it/geoserver/gwc/service/wmts/?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER={layer}&STYLE=default&TILEMATRIXSET=GoogleMapsCompatible&TILEMATRIX=GoogleMapsCompatible%3A{z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg',
+    `http://geoservices.buergernetz.bz.it/geoserver/gwc/service/wmts/?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${id}&STYLE=default&TILEMATRIXSET=GoogleMapsCompatible&TILEMATRIX=GoogleMapsCompatible%3A{z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg`,
     {
-      layer: id,
       maxZoom: 20,
-      attribution: [].concat(attributionST, [attributionOsm]),
+      attribution: [...attributionST, attributionOsm].join(', '),
     }
   );
   layers.addBaseLayer(layer, title);
@@ -176,7 +171,7 @@ const allMapLayers = {};
     {
       layers: id,
       format: 'image/jpeg',
-      attribution: attributionST_CC0,
+      attribution: attributionST_CC0.join(', '),
     }
   );
   layers.addBaseLayer(layer, title);
@@ -202,7 +197,7 @@ const allMapLayers = {};
       layers: id,
       format: 'image/jpeg',
       maxZoom: 20,
-      attribution: attributionST,
+      attribution: attributionST.join(', '),
     }
   );
   layers.addBaseLayer(layer, title);

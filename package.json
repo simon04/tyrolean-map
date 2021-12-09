@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "private": "true",
   "description": "Frontend to various maps published by Land Tirol and South Tyrol as Open Government Data",
-  "main": "app.js",
+  "main": "app.ts",
   "scripts": {
-    "build": "esbuild --bundle app.js --outdir=dist/ --target=es6 --minify --sourcemap --loader:.png=file --loader:.gif=file",
-    "fix:style": "prettier --write $(git ls-files '*.js' '*.html')",
-    "test": "prettier --check $(git ls-files '*.js' '*.html')"
+    "build": "esbuild --bundle app.ts --outdir=dist/ --target=es6 --minify --sourcemap --loader:.png=file --loader:.gif=file",
+    "fix:style": "prettier --write $(git ls-files '*.ts' '*.html')",
+    "test": "prettier --check $(git ls-files '*.ts' '*.html')"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@types/leaflet": "^1.7.6",
+    "@types/leaflet.locatecontrol": "^0.74.0",
     "esbuild": "^0.13.12",
     "prettier": "^2.1.2",
     "pretty-quick": "^3.1.0"
