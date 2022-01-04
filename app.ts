@@ -209,4 +209,15 @@ const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 layers.addBaseLayer(osm, 'OpenStreetMap');
 allMapLayers['OSM'] = osm;
 
+const otm = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
+  attribution: [
+    attributionOsm,
+    '<a href="http://viewfinderpanoramas.org">SRTM</a>',
+    'Kartendarstellung: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
+  ].join(', '),
+});
+layers.addBaseLayer(otm, 'OpenTopoMap');
+allMapLayers['OpenTopoMap'] = otm;
+
 new LeafletHash(map, allMapLayers);
