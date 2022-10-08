@@ -20,12 +20,12 @@
   },
   "homepage": "https://github.com/simon04/tyrolean-map#readme",
   "dependencies": {
-    "leaflet": "^1.8.0",
+    "leaflet": "^1.9.2",
     "leaflet-control-geocoder": "^2.4.0",
     "leaflet.locatecontrol": "^0.72.0"
   },
   "devDependencies": {
-    "@types/leaflet": "^1.7.10",
+    "@types/leaflet": "^1.8.0",
     "@types/leaflet.locatecontrol": "^0.74.0",
     "esbuild": "^0.14.2",
     "prettier": "^2.6.2",
