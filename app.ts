@@ -51,7 +51,7 @@ const attributionST_CC0 = [
 ];
 const attributionOsm = '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> (ODbL)';
 
-const allMapLayers = {};
+const allMapLayers: Record<string, L.Layer> = {};
 
 [
   {id: 'gdi_base_summer', title: 'Elektronische Karte Tirol: Sommer'},
