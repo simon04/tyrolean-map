@@ -220,4 +220,26 @@ const otm = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
 layers.addBaseLayer(otm, 'OpenTopoMap');
 allMapLayers['OpenTopoMap'] = otm;
 
+allMapLayers['OpenSlopeMap'] = L.tileLayer(
+  'https://tileserver{s}.openslopemap.org/OSloOVERLAY_LR_All_16/{z}/{x}/{y}.png',
+  {
+    opacity: 0.7,
+    subdomains: '1234',
+    attribution:
+      '<a href="https://www.openslopemap.org/projekt/lizenzen/">OpenSlopeMap</a> (<a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>)' +
+      '<div class="legend">' +
+      '<i style="color:#FFFFFF">■</i> 0°–9°, ' +
+      '<i style="color:#00FF00">■</i> 10°–29°, ' +
+      '<i style="color:#F0E100">■</i> 30°–34°, ' +
+      '<i style="color:#FF9B00">■</i> 35°–39°, ' +
+      '<i style="color:#FF0000">■</i> 40°–42°, ' +
+      '<i style="color:#FF26FF">■</i> 43°–45°, ' +
+      '<i style="color:#A719FF">■</i> 46°–49°, ' +
+      '<i style="color:#6E00FF">■</i> 50°–54°, ' +
+      '<i style="color:#0000FF">■</i> 55°–90°' +
+      '</div>',
+  }
+);
+layers.addOverlay(allMapLayers['OpenSlopeMap'], 'OpenSlopeMap');
+
 new LeafletHash(map, allMapLayers);
