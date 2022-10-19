@@ -202,14 +202,13 @@ const allMapLayers: Record<string, L.Layer> = {};
   allMapLayers[id] = layer;
 });
 
-const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+allMapLayers['OSM'] = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
   attribution: attributionOsm,
 });
-layers.addBaseLayer(osm, 'OpenStreetMap');
-allMapLayers['OSM'] = osm;
+layers.addBaseLayer(allMapLayers['OSM'], 'OpenStreetMap');
 
-const otm = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+allMapLayers['OpenTopoMap'] = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
   attribution: [
     attributionOsm,
@@ -217,8 +216,7 @@ const otm = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
     'Kartendarstellung: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
   ].join(', '),
 });
-layers.addBaseLayer(otm, 'OpenTopoMap');
-allMapLayers['OpenTopoMap'] = otm;
+layers.addBaseLayer(allMapLayers['OpenTopoMap'], 'OpenTopoMap');
 
 allMapLayers['OpenSlopeMap'] = L.tileLayer(
   'https://tileserver{s}.openslopemap.org/OSloOVERLAY_LR_All_16/{z}/{x}/{y}.png',
