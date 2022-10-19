@@ -113,12 +113,11 @@ export default class LeafletHash {
 
       this.map.setView(parsed.center, parsed.zoom);
       const layers = parsed.layers,
-        options = this.options,
-        that = this;
+        options = this.options;
       //Add/remove layers
       if (layers && options[layers]) {
-        this.map.eachLayer((layer) => that.map.removeLayer(layer));
-        that.map.addLayer(options[layers]);
+        this.map.eachLayer((layer) => this.map.removeLayer(layer));
+        this.map.addLayer(options[layers]);
       }
 
       this.movingMap = false;
@@ -132,10 +131,9 @@ export default class LeafletHash {
     // throttle calls to update() so that they only happen every
     // `changeDefer` ms
     if (!this.changeTimeout) {
-      const that = this;
       this.changeTimeout = setTimeout(() => {
-        that.update();
-        that.changeTimeout = null;
+        this.update();
+        this.changeTimeout = null;
       }, this.changeDefer);
     }
   }
