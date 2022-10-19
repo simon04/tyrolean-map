@@ -3,7 +3,7 @@ import * as L from 'leaflet';
 
 export default class LeafletHash {
   map: L.Map = null;
-  options: Record<string, L.Layer>;
+  options: Record<string, L.Layer> = {};
   lastHash = null;
   movingMap = false;
   changeDefer = 100;
