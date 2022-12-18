@@ -7,8 +7,8 @@
   "scripts": {
     "build": "vite build",
     "dev": "vite",
-    "fix:style": "prettier --write $(git ls-files '*.ts' '*.html')",
-    "test": "prettier --check $(git ls-files '*.ts' '*.html')"
+    "fix:style": "prettier --write index.html src/",
+    "test": "prettier --check index.html src/"
   },
   "repository": {
     "type": "git",
