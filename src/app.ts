@@ -185,20 +185,22 @@ const allMapLayers: Record<string, L.Layer> = {};
 });
 
 [
-  {id: 'Orthophoto_1992_97', title: 'Orthofoto South Tyrol: 1992–1997'},
-  {id: 'Orthophoto_2000', title: 'Orthofoto South Tyrol: 2000'},
-  {id: 'P_BZ_OF_2011_EPSG3857', title: 'Orthofoto South Tyrol: 2011'},
+  {id: 'Aerial-1982-1985-BW', title: 'Orthofoto South Tyrol: 1982–1985'},
+  {id: 'Aerial-1992-1997-BW', title: 'Orthofoto South Tyrol: 1992–1997'},
+  {id: 'Aerial-1999-RGB', title: 'Orthofoto South Tyrol: 1999'},
+  {id: 'Aerial-2003-BW', title: 'Orthofoto South Tyrol: 2003'},
+  {id: 'Aerial-2006-RGB', title: 'Orthofoto South Tyrol: 2006'},
+  {id: 'Aerial-2011-AgEA-RGB', title: 'Orthofoto South Tyrol: 2011'},
   {
-    id: 'P_BZ_OF_2014_2015_EPSG3857',
-    title: 'Orthofoto South Tyrol: 2014–2015',
+    id: 'Aerial-2011-AgEA-CIR',
+    title: 'Orthofoto South Tyrol: 2011 <abbr title="photographisches Infrarot">CIR</abbr>',
   },
-  {
-    id: 'p_bz-orthoimagery:Orthophoto_2011_CIR_EPSG3857,P_BZ_OF_2014_CIR_EPSG3857',
-    title: 'Orthofoto South Tyrol: 2011–2014 <abbr title="photographisches Infrarot">CIR</abbr>',
-  },
+  {id: 'Aerial-2014-RGB', title: 'Orthofoto South Tyrol: 2014'},
+  {id: 'Aerial-2017-RGB', title: 'Orthofoto South Tyrol: 2017'},
+  {id: 'Aerial-2020-RGB', title: 'Orthofoto South Tyrol: 2020'},
 ].forEach(({id, title}) => {
   const layer = L.tileLayer.wms(
-    'https://geoservices.buergernetz.bz.it/geoserver/p_bz-orthoimagery/ows',
+    'https://geoservices.buergernetz.bz.it/mapproxy/p_bz-Orthoimagery/wms',
     {
       layers: id,
       format: 'image/jpeg',
