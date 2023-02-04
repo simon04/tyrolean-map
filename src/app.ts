@@ -5,13 +5,14 @@ import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
 import 'leaflet.locatecontrol';
 import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css';
 import LeafletHash from './leaflet-fullHash';
+import {CollapsableLayerControl} from './leaflet-collapsable-layer-control';
 import './style.css';
 
 const map = L.map('map').setView([47.3, 11.3], 9);
 
 map.attributionControl.setPrefix(false);
 const collapsed = window.matchMedia && window.matchMedia('all and (max-width: 700px)').matches;
-const layers = L.control.layers({}, {}, {collapsed: collapsed}).addTo(map);
+const layers = new CollapsableLayerControl({}, {}, {collapsed: collapsed}).addTo(map);
 
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
