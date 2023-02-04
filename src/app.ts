@@ -142,7 +142,7 @@ const allMapLayers: Record<string, L.Layer> = {};
   allMapLayers[id] = layer;
 });
 
-[{id: 'P_BZ_BASEMAP_TOPO', title: 'South Tyrol Base Map'}].forEach(({id, title}) => {
+[{id: 'p_bz-BaseMap%3ABasemap-Standard', title: 'South Tyrol Base Map'}].forEach(({id, title}) => {
   const layer = L.tileLayer(
     `https://geoservices.buergernetz.bz.it/geoserver/gwc/service/wmts/?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${id}&STYLE=default&TILEMATRIXSET=GoogleMapsCompatible&TILEMATRIX=GoogleMapsCompatible%3A{z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg`,
     {
