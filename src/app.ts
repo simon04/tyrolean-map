@@ -156,22 +156,30 @@ const allMapLayers: Record<string, L.Layer> = {};
 
 [
   {
-    id: 'DTM-2p5m_Hillshade,DTM_Hillshade_SolarTirol_3857',
-    title: 'DTM South Tyrol',
+    id: 'DigitalTerrainModel-0.5m-Hillshade',
+    title: 'Gelände South Tyrol: Geländemodell 0.5m',
   },
   {
-    id: 'DSM-2p5m_Hillshade,DSM_Hillshade_SolarTirol_3857',
-    title: 'DSM South Tyrol',
+    id: 'DigitalTerrainModel-2.5m-Hillshade',
+    title: 'Gelände South Tyrol: Geländemodell',
+    // Hillshade/Schummerung/Ombreggiatura
+  },
+  {
+    id: 'DigitalTerrainModel-2.5m-Exposition',
+    title: 'Gelände South Tyrol: Exposition',
+    // Exposition/Esposizione
+  },
+  {
+    id: 'DigitalTerrainModel-2.5m-Slope',
+    title: 'Gelände South Tyrol: Geländeneigung',
+    // Slope/Hangneigung/Clivometria
   },
 ].forEach(({id, title}) => {
-  const layer = L.tileLayer.wms(
-    'https://geoservices.buergernetz.bz.it/geoserver/p_bz-elevation/ows',
-    {
-      layers: id,
-      format: 'image/jpeg',
-      attribution: attributionST_CC0.join(', '),
-    }
-  );
+  const layer = L.tileLayer.wms('https://geoservices1.civis.bz.it/geoserver/p_bz-Elevation/wms', {
+    layers: id,
+    format: 'image/jpeg',
+    attribution: attributionST_CC0.join(', '),
+  });
   layers.addBaseLayer(layer, title);
   allMapLayers[id] = layer;
 });
