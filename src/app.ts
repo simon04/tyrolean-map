@@ -94,8 +94,8 @@ const allMapLayers: Record<string, L.Layer> = {};
 });
 
 [
-  {id: 'Image_1940', title: 'Orthofoto Tirol: 1940'},
-  {id: 'Image_1949-1954', title: 'Orthofoto Tirol: 1949–1954'},
+  {id: 'Image_1940', title: 'Orthofoto Tirol: 1940 (Innsbruck)'},
+  {id: 'Image_1949-1954', title: 'Orthofoto Tirol: 1949–1954 (Paznauntal)'},
   {id: 'Image_1970-1982', title: 'Orthofoto Tirol: 1970–1982'},
   {id: 'Image_1999-2004', title: 'Orthofoto Tirol: 1999–2004'},
   {id: 'Image_2004-2009', title: 'Orthofoto Tirol: 2004–2009'},
