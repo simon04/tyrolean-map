@@ -96,13 +96,14 @@ const allMapLayers: Record<string, L.Layer> = {};
 
 [
   {id: 'Image_1940', title: 'Orthofoto Tirol: 1940 (Innsbruck)'},
-  {id: 'Image_1949-1954', title: 'Orthofoto Tirol: 1949–1954 (Paznauntal)'},
-  {id: 'Image_1970-1982', title: 'Orthofoto Tirol: 1970–1982'},
-  {id: 'Image_1999-2004', title: 'Orthofoto Tirol: 1999–2004'},
-  {id: 'Image_2004-2009', title: 'Orthofoto Tirol: 2004–2009'},
-  {id: 'Image_2009-2012', title: 'Orthofoto Tirol: 2009–2012'},
-  {id: 'Image_2013-2015', title: 'Orthofoto Tirol: 2013–2015'},
-  {id: 'Image_2016-2018', title: 'Orthofoto Tirol: 2016–2018'},
+  {id: 'Image_1949_1954', title: 'Orthofoto Tirol: 1949–1954 (Paznauntal)'},
+  {id: 'Image_1970_1982', title: 'Orthofoto Tirol: 1970–1982'},
+  {id: 'Image_1999_2004', title: 'Orthofoto Tirol: 1999–2004'},
+  {id: 'Image_2004_2009', title: 'Orthofoto Tirol: 2004–2009'},
+  {id: 'Image_2009_2012', title: 'Orthofoto Tirol: 2009–2012'},
+  {id: 'Image_2013_2015', title: 'Orthofoto Tirol: 2013–2015'},
+  {id: 'Image_2016_2018', title: 'Orthofoto Tirol: 2016–2018'},
+  {id: 'Image_2019', title: 'Orthofoto Tirol: 2019'},
   {id: 'Image_Aktuell_RGB', title: 'Orthofoto Tirol: aktuell'},
   {
     id: 'Image_Aktuell_CIR',
