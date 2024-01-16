@@ -87,7 +87,10 @@ const allMapLayers: Record<string, L.Layer> = {};
       layers: id,
       format: 'image/jpeg',
       maxZoom: 20,
-      attribution: attribution.join(', '),
+      attribution: [
+        ...attribution,
+        `<img src="https://gis.tirol.gv.at/arcgis/services/Service_Public/terrain/MapServer/WMSServer?request=GetLegendGraphic%26version=1.3.0%26format=image/png%26layer=${id}">`,
+      ].join(', '),
     }
   );
   layers.addBaseLayer(layer, title);
