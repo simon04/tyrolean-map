@@ -25,7 +25,7 @@ export default class LeafletHash {
       const zoom = parseInt(args[0], 10),
         lat = parseFloat(args[1]),
         lon = parseFloat(args[2]),
-        layers = decodeURIComponent(args[3] || '');
+        layers = decodeURIComponent(args[3] || '').split(',');
       if (isNaN(zoom) || isNaN(lat) || isNaN(lon)) {
         return false;
       } else {
@@ -114,10 +114,11 @@ export default class LeafletHash {
       this.map.setView(parsed.center, parsed.zoom);
       const layers = parsed.layers,
         options = this.options;
+      console.log(layers);
       //Add/remove layers
-      if (layers && options[layers]) {
+      if (Array.isArray(layers) && layers.every((l) => options[l])) {
         this.map.eachLayer((layer) => this.map.removeLayer(layer));
-        this.map.addLayer(options[layers]);
+        layers.forEach((l) => this.map.addLayer(options[l]));
       }
 
       this.movingMap = false;
