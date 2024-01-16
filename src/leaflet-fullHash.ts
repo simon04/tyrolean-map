@@ -22,10 +22,10 @@ export default class LeafletHash {
     }
     const args = hash.split('/');
     if (args.length >= 3) {
-      const zoom = parseInt(args[0], 10),
-        lat = parseFloat(args[1]),
-        lon = parseFloat(args[2]),
-        layers = decodeURIComponent(args[3] || '').split(',');
+      const zoom = parseInt(args[0], 10);
+      const lat = parseFloat(args[1]);
+      const lon = parseFloat(args[2]);
+      const layers = decodeURIComponent(args[3] || '').split(',');
       if (isNaN(zoom) || isNaN(lat) || isNaN(lon)) {
         return false;
       } else {
@@ -41,10 +41,10 @@ export default class LeafletHash {
   }
 
   formatHash(map: L.Map) {
-    const center = map.getCenter(),
-      zoom = map.getZoom(),
-      precision = Math.max(0, Math.ceil(Math.log(zoom) / Math.LN2)),
-      layers = [];
+    const center = map.getCenter();
+    const zoom = map.getZoom();
+    const precision = Math.max(0, Math.ceil(Math.log(zoom) / Math.LN2));
+    const layers = [];
 
     const options = this.options;
     //Check active layers
@@ -112,8 +112,8 @@ export default class LeafletHash {
       this.movingMap = true;
 
       this.map.setView(parsed.center, parsed.zoom);
-      const layers = parsed.layers,
-        options = this.options;
+      const layers = parsed.layers;
+      const options = this.options;
       console.log(layers);
       //Add/remove layers
       if (Array.isArray(layers) && layers.every((l) => options[l])) {
