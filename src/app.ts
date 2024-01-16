@@ -73,19 +73,11 @@ const allMapLayers: Record<string, L.Layer> = {};
   {
     id: 'Image_Schummerung_Gelaendemodell',
     title: 'Gelände Tirol: Geländemodell',
-  } as const,
+  },
   {
     id: 'Image_Schummerung_Oberflaechenmodell',
     title: 'Gelände Tirol: Oberflächenmodell',
-  } as const,
-  {
-    id: 'Image_Exposition',
-    title: 'Gelände Tirol: Exposition',
-  } as const,
-  {
-    id: 'Image_Gelaendeneigung_Grad',
-    title: 'Gelände Tirol: Geländeneigung',
-  } as const,
+  },
 ].forEach(({id, title}) => {
   const layer = L.tileLayer.wms(
     'https://gis.tirol.gv.at/arcgis/services/Service_Public/terrain/MapServer/WMSServer',
@@ -93,17 +85,10 @@ const allMapLayers: Record<string, L.Layer> = {};
       layers: id,
       format: 'image/jpeg',
       maxZoom: 20,
-      attribution: [
-        ...attribution,
-        `<img src="https://gis.tirol.gv.at/arcgis/services/Service_Public/terrain/MapServer/WMSServer?request=GetLegendGraphic%26version=1.3.0%26format=image/png%26layer=${id}">`,
-      ].join(', '),
+      attribution: attribution.join(', '),
     }
   );
-  if (id === 'Image_Exposition' || id === 'Image_Gelaendeneigung_Grad') {
-    layers.addOverlay(layer, title);
-  } else {
-    layers.addBaseLayer(layer, title);
-  }
+  layers.addBaseLayer(layer, title);
   allMapLayers[id] = layer;
 });
 
@@ -242,6 +227,32 @@ allMapLayers['OpenTopoMap'] = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/
   ].join(', '),
 });
 layers.addBaseLayer(allMapLayers['OpenTopoMap'], 'OpenTopoMap');
+
+[
+  {
+    id: 'Image_Exposition',
+    title: 'Gelände Tirol: Exposition',
+  },
+  {
+    id: 'Image_Gelaendeneigung_Grad',
+    title: 'Gelände Tirol: Geländeneigung',
+  },
+].forEach(({id, title}) => {
+  const layer = L.tileLayer.wms(
+    'https://gis.tirol.gv.at/arcgis/services/Service_Public/terrain/MapServer/WMSServer',
+    {
+      layers: id,
+      format: 'image/jpeg',
+      maxZoom: 20,
+      attribution: [
+        ...attribution,
+        `<img src="https://gis.tirol.gv.at/arcgis/services/Service_Public/terrain/MapServer/WMSServer?request=GetLegendGraphic%26version=1.3.0%26format=image/png%26layer=${id}">`,
+      ].join(', '),
+    }
+  );
+  layers.addOverlay(layer, title);
+  allMapLayers[id] = layer;
+});
 
 allMapLayers['OpenSlopeMap'] = L.tileLayer(
   'https://tileserver{s}.openslopemap.org/OSloOVERLAY_LR_All_16/{z}/{x}/{y}.png',
