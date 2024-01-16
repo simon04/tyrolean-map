@@ -73,13 +73,19 @@ const allMapLayers: Record<string, L.Layer> = {};
   {
     id: 'Image_Schummerung_Gelaendemodell',
     title: 'Gelände Tirol: Geländemodell',
-  },
+  } as const,
   {
     id: 'Image_Schummerung_Oberflaechenmodell',
     title: 'Gelände Tirol: Oberflächenmodell',
-  },
-  {id: 'Image_Exposition', title: 'Gelände Tirol: Exposition'},
-  {id: 'Image_Gelaendeneigung_Grad', title: 'Gelände Tirol: Geländeneigung'},
+  } as const,
+  {
+    id: 'Image_Exposition',
+    title: 'Gelände Tirol: Exposition',
+  } as const,
+  {
+    id: 'Image_Gelaendeneigung_Grad',
+    title: 'Gelände Tirol: Geländeneigung',
+  } as const,
 ].forEach(({id, title}) => {
   const layer = L.tileLayer.wms(
     'https://gis.tirol.gv.at/arcgis/services/Service_Public/terrain/MapServer/WMSServer',
@@ -93,7 +99,11 @@ const allMapLayers: Record<string, L.Layer> = {};
       ].join(', '),
     }
   );
-  layers.addBaseLayer(layer, title);
+  if (id === 'Image_Exposition' || id === 'Image_Gelaendeneigung_Grad') {
+    layers.addOverlay(layer, title);
+  } else {
+    layers.addBaseLayer(layer, title);
+  }
   allMapLayers[id] = layer;
 });
 
