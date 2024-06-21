@@ -86,7 +86,7 @@ const allMapLayers: Record<string, L.Layer> = {};
       format: 'image/jpeg',
       maxZoom: 20,
       attribution: attribution.join(', '),
-    }
+    },
   );
   layers.addBaseLayer(layer, title);
   allMapLayers[id] = layer;
@@ -115,7 +115,7 @@ const allMapLayers: Record<string, L.Layer> = {};
       format: 'image/jpeg',
       maxZoom: 20,
       attribution: attribution.join(', '),
-    }
+    },
   );
   layers.addBaseLayer(layer, title);
   allMapLayers[id] = layer;
@@ -136,7 +136,7 @@ const allMapLayers: Record<string, L.Layer> = {};
         'Grundkarte: <a href="https://www.basemap.at/">basemap.at</a>',
         '<a href="https://creativecommons.org/licenses/by/4.0/deed.de">CC BY 4.0</a>',
       ].join(', '),
-    }
+    },
   );
   layers.addBaseLayer(layer, title);
   allMapLayers[id] = layer;
@@ -148,7 +148,7 @@ const allMapLayers: Record<string, L.Layer> = {};
     {
       maxZoom: 20,
       attribution: [...attributionST, attributionOsm].join(', '),
-    }
+    },
   );
   layers.addBaseLayer(layer, title);
   allMapLayers[id] = layer;
@@ -206,7 +206,7 @@ const allMapLayers: Record<string, L.Layer> = {};
       format: 'image/jpeg',
       maxZoom: 20,
       attribution: attributionST.join(', '),
-    }
+    },
   );
   layers.addBaseLayer(layer, title);
   allMapLayers[id] = layer;
@@ -248,7 +248,7 @@ layers.addBaseLayer(allMapLayers['OpenTopoMap'], 'OpenTopoMap');
         ...attribution,
         `<img src="https://gis.tirol.gv.at/arcgis/services/Service_Public/terrain/MapServer/WMSServer?request=GetLegendGraphic%26version=1.3.0%26format=image/png%26layer=${id}">`,
       ].join(', '),
-    }
+    },
   );
   layers.addOverlay(layer, title);
   allMapLayers[id] = layer;
@@ -272,7 +272,7 @@ allMapLayers['OpenSlopeMap'] = L.tileLayer(
       '<i style="color:#6E00FF">■</i> 50°–54°, ' +
       '<i style="color:#0000FF">■</i> 55°–90°' +
       '</div>',
-  }
+  },
 );
 layers.addOverlay(allMapLayers['OpenSlopeMap'], 'OpenSlopeMap');
 

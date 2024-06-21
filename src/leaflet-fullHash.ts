@@ -57,7 +57,7 @@ export default class LeafletHash {
     return (
       '#' +
       [zoom, center.lat.toFixed(precision), center.lng.toFixed(precision), layers.join(',')].join(
-        '/'
+        '/',
       )
     );
   }
