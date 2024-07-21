@@ -92,6 +92,7 @@ const allMapLayers: Record<string, L.Layer> = {};
   allMapLayers[id] = layer;
 });
 
+// https://gis.tirol.gv.at/arcgis/services/Service_Public/orthofoto/MapServer/WMSServer?request=GetCapabilities&service=WMS
 [
   {id: 'Image_1940', title: 'Orthofoto Tirol: 1940 (Innsbruck)'},
   {id: 'Image_1949_1954', title: 'Orthofoto Tirol: 1949–1954 (Paznauntal)'},
@@ -101,7 +102,7 @@ const allMapLayers: Record<string, L.Layer> = {};
   {id: 'Image_2009_2012', title: 'Orthofoto Tirol: 2009–2012'},
   {id: 'Image_2013_2015', title: 'Orthofoto Tirol: 2013–2015'},
   {id: 'Image_2016_2018', title: 'Orthofoto Tirol: 2016–2018'},
-  {id: 'Image_2019', title: 'Orthofoto Tirol: 2019'},
+  {id: 'Image_2019_2020', title: 'Orthofoto Tirol: 2019–2020'},
   {id: 'Image_Aktuell_RGB', title: 'Orthofoto Tirol: aktuell'},
   {
     id: 'Image_Aktuell_CIR',
