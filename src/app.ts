@@ -199,6 +199,11 @@ const allMapLayers: Record<string, L.Layer> = {};
   {id: 'Aerial-2014-RGB', title: 'Orthofoto South Tyrol: 2014'},
   {id: 'Aerial-2017-RGB', title: 'Orthofoto South Tyrol: 2017'},
   {id: 'Aerial-2020-RGB', title: 'Orthofoto South Tyrol: 2020'},
+  {id: 'Aerial-2023-RGB', title: 'Orthofoto South Tyrol: 2023'},
+  {
+    id: 'Aerial-2023-CIR',
+    title: 'Orthofoto South Tyrol: 2023 <abbr title="photographisches Infrarot">CIR</abbr>',
+  },
 ].forEach(({id, title}) => {
   const layer = L.tileLayer.wms(
     'https://geoservices.buergernetz.bz.it/mapproxy/p_bz-Orthoimagery/wms',
