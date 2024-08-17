@@ -129,7 +129,7 @@ const allMapLayers: Record<string, L.Layer> = {};
   {id: 'bmapgelaende/grau', title: 'basemap.at Gelände', format: 'jpg'},
 ].forEach(({id, title, format}) => {
   const layer = L.tileLayer(
-    `https://maps{s}.wien.gv.at/basemap/${id}/google3857/{z}/{y}/{x}.${format}`,
+    `https://maps.wien.gv.at/basemap/${id}/google3857/{z}/{y}/{x}.${format}`,
     {
       subdomains: '1234',
       maxZoom: 19,
@@ -219,7 +219,7 @@ allMapLayers['OSM'] = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.pn
 });
 layers.addBaseLayer(allMapLayers['OSM'], 'OpenStreetMap');
 
-allMapLayers['OpenTopoMap'] = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+allMapLayers['OpenTopoMap'] = L.tileLayer('https://tile.opentopomap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
   attribution: [
     attributionOsm,
@@ -256,7 +256,7 @@ layers.addBaseLayer(allMapLayers['OpenTopoMap'], 'OpenTopoMap');
 });
 
 allMapLayers['OpenSlopeMap'] = L.tileLayer(
-  'https://tileserver{s}.openslopemap.org/OSloOVERLAY_LR_All_16/{z}/{x}/{y}.png',
+  'https://tileserver.openslopemap.org/OSloOVERLAY_LR_All_16/{z}/{x}/{y}.png',
   {
     opacity: 0.7,
     subdomains: '1234',
