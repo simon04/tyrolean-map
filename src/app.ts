@@ -124,6 +124,7 @@ const allMapLayers: Record<string, L.Layer> = {};
 
 [
   {id: 'geolandbasemap/normal', title: 'basemap.at', format: 'png'},
+  {id: 'bmaphidpi/normal', title: 'basemap.at HiDPI', format: 'jpeg'},
   {id: 'bmapgrau/normal', title: 'basemap.at Grau', format: 'png'},
   {id: 'bmaporthofoto30cm/normal', title: 'basemap.at Orthofoto', format: 'jpg'},
   {id: 'bmapgelaende/grau', title: 'basemap.at Gelände', format: 'jpg'},
