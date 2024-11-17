@@ -129,7 +129,7 @@ const allMapLayers: Record<string, L.Layer> = {};
   {id: 'bmapgelaende/grau', title: 'basemap.at Gelände', format: 'jpg'},
 ].forEach(({id, title, format}) => {
   const layer = L.tileLayer(
-    `https://maps.wien.gv.at/basemap/${id}/google3857/{z}/{y}/{x}.${format}`,
+    `https://mapsneu.wien.gv.at/basemap/${id}/google3857/{z}/{y}/{x}.${format}`,
     {
       subdomains: '1234',
       maxZoom: 19,
