@@ -1,7 +1,7 @@
 import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import {GeocoderControl} from 'leaflet-control-geocoder/src/control';
-import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
+import {Geocoder as GeocoderControl} from 'leaflet-control-geocoder';
+import 'leaflet-control-geocoder/style.css';
 import 'leaflet.locatecontrol';
 import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css';
 import LeafletHash from './leaflet-fullHash';
