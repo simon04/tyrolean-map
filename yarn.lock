@@ -893,9 +893,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leaflet-control-geocoder@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "leaflet-control-geocoder@npm:3.0.1"
+"leaflet-control-geocoder@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "leaflet-control-geocoder@npm:3.1.0"
   dependencies:
     open-location-code: "npm:^1.0.3"
   peerDependencies:
@@ -903,7 +903,7 @@ __metadata:
   dependenciesMeta:
     open-location-code:
       optional: true
-  checksum: 10c0/2487d2e03762bbcf3e7b10f2fd43c92bdccf27c62a713657b04d34fad86081124b8e53f20007dc7ba815e7fb53f25f46ce43a70928c7fe55bc58e64cd2142706
+  checksum: 10c0/fd9c92daca8695b113f80e56540d753196baa74a952f1c99863ba10eab9899813bf63dec935889a49d11a93ace2dcc78170e351510e742f72bf8277a79ba9103
   languageName: node
   linkType: hard
 
@@ -1545,7 +1545,7 @@ __metadata:
     "@types/leaflet": "npm:^1.9.3"
     "@types/leaflet.locatecontrol": "npm:^0.74.0"
     leaflet: "npm:^1.9.4"
-    leaflet-control-geocoder: "npm:^3.0.1"
+    leaflet-control-geocoder: "npm:^3.1.0"
     leaflet.locatecontrol: "npm:^0.72.0"
     prettier: "npm:^3.4.2"
     pretty-quick: "npm:^4.0.0"
