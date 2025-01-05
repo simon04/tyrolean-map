@@ -2,7 +2,7 @@ import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {Geocoder as GeocoderControl} from 'leaflet-control-geocoder';
 import 'leaflet-control-geocoder/style.css';
-import 'leaflet.locatecontrol';
+import {LocateControl} from 'leaflet.locatecontrol';
 import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css';
 import LeafletHash from './leaflet-fullHash';
 import {CollapsableLayerControl} from './leaflet-collapsable-layer-control';
@@ -28,12 +28,10 @@ new GeocoderControl({
   position: 'topleft',
 }).addTo(map);
 
-L.control
-  .locate({
-    icon: 'tm-marker',
-    iconLoading: 'tm-marker',
-  })
-  .addTo(map);
+new LocateControl({
+  icon: 'tm-marker',
+  iconLoading: 'tm-marker',
+}).addTo(map);
 
 const attribution = [
   '<a href="https://github.com/simon04/tyrolean-map">Tyrolean Map</a> (Simon Legner)',

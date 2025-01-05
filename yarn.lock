@@ -363,21 +363,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/leaflet.locatecontrol@npm:^0.74.0":
-  version: 0.74.0
-  resolution: "@types/leaflet.locatecontrol@npm:0.74.0"
+"@types/leaflet.locatecontrol@npm:^0.74.6":
+  version: 0.74.6
+  resolution: "@types/leaflet.locatecontrol@npm:0.74.6"
   dependencies:
     "@types/leaflet": "npm:*"
-  checksum: 10c0/7bc84e430d05a206829068c18f1ef4eb29a9f109ca640a6bac38408c5bff95e5dd36eb3856d7157ae8a1790e7c937bfd544388898185d19d581b9575741e9034
+  checksum: 10c0/4969ee6238ed797f4a269d9b603af9fc78d49ecd1ce8f074b996010ae3658030569aeca028d9c210b97095f97bd2acf7b6bc39bdbb507b6b186eb46fc8c7c5b7
   languageName: node
   linkType: hard
 
-"@types/leaflet@npm:*, @types/leaflet@npm:^1.9.3":
-  version: 1.9.3
-  resolution: "@types/leaflet@npm:1.9.3"
+"@types/leaflet@npm:*, @types/leaflet@npm:^1.9.15":
+  version: 1.9.15
+  resolution: "@types/leaflet@npm:1.9.15"
   dependencies:
     "@types/geojson": "npm:*"
-  checksum: 10c0/c18ae40e30bd94d71e0adb57f76d3a66f38eb399e025646d524b11b9a4a0d106886da32663ec551e8f86cceb48bb23ef48a816a8a1ad1bc9224635ca57cd8dc7
+  checksum: 10c0/6537da4107f833e38359ca9e98e2c161d686af58ff8873c65c102e146b881761ca6212b08fae4e755380ee001073f856ee46c5ea25592a53f39e2b9e5d934d42
   languageName: node
   linkType: hard
 
@@ -907,10 +907,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leaflet.locatecontrol@npm:^0.72.0":
-  version: 0.72.0
-  resolution: "leaflet.locatecontrol@npm:0.72.0"
-  checksum: 10c0/fd334b3199d5b1f76e6c8a00858879cfcae0e0b1a36d36e712ef19e11f647f6838396decbc376a0903ddc4f687d0d75102656a69d6435936df79a394ae9d6bbc
+"leaflet.locatecontrol@npm:^0.83.0":
+  version: 0.83.0
+  resolution: "leaflet.locatecontrol@npm:0.83.0"
+  checksum: 10c0/b03aa0a74bc4af25c54f0167501a18f24e6d91abbca2cb60ca240ca5c5b938d88d84e1866ce91e2b563dc7cad5a8382c86fad2609759a5ecd3f5dd71bd9c8035
   languageName: node
   linkType: hard
 
@@ -1542,11 +1542,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "tyrolean-map@workspace:."
   dependencies:
-    "@types/leaflet": "npm:^1.9.3"
-    "@types/leaflet.locatecontrol": "npm:^0.74.0"
+    "@types/leaflet": "npm:^1.9.15"
+    "@types/leaflet.locatecontrol": "npm:^0.74.6"
     leaflet: "npm:^1.9.4"
     leaflet-control-geocoder: "npm:^3.1.0"
-    leaflet.locatecontrol: "npm:^0.72.0"
+    leaflet.locatecontrol: "npm:^0.83.0"
     prettier: "npm:^3.4.2"
     pretty-quick: "npm:^4.0.0"
     vite: "npm:^6.0.5"
