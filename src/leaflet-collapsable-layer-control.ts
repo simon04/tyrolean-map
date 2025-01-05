@@ -1,3 +1,5 @@
+import * as L from 'leaflet';
+
 /**
  * A Leaflet Layer Control, which may be expanded by default, but may be collapsed using a button.
  *

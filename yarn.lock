@@ -914,10 +914,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leaflet@npm:^1.9.4":
-  version: 1.9.4
-  resolution: "leaflet@npm:1.9.4"
-  checksum: 10c0/f639441dbb7eb9ae3fcd29ffd7d3508f6c6106892441634b0232fafb9ffb1588b05a8244ec7085de2c98b5ed703894df246898477836cfd0ce5b96d4717b5ca1
+"leaflet@https://github.com/Leaflet/Leaflet#142f94a9ba5757f7e7180ffa6cbed2b3a9bc73c9":
+  version: 1.9.2
+  resolution: "leaflet@https://github.com/Leaflet/Leaflet.git#commit=142f94a9ba5757f7e7180ffa6cbed2b3a9bc73c9"
+  checksum: 10c0/6709c8ce921828dba1e20680c7837be2563e0815a41e9da31978dec287008e85fcb06e68155e54963cc7b59ce34c644e69762ea1c916ee1124004c39c2c6457a
   languageName: node
   linkType: hard
 
@@ -1544,7 +1544,7 @@ __metadata:
   dependencies:
     "@types/leaflet": "npm:^1.9.15"
     "@types/leaflet.locatecontrol": "npm:^0.74.6"
-    leaflet: "npm:^1.9.4"
+    leaflet: "https://github.com/Leaflet/Leaflet#142f94a9ba5757f7e7180ffa6cbed2b3a9bc73c9"
     leaflet-control-geocoder: "npm:^3.1.0"
     leaflet.locatecontrol: "npm:^0.83.0"
     prettier: "npm:^3.4.2"

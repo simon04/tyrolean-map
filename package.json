@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/simon04/tyrolean-map#readme",
   "dependencies": {
-    "leaflet": "^1.9.4",
+    "leaflet": "https://github.com/Leaflet/Leaflet#142f94a9ba5757f7e7180ffa6cbed2b3a9bc73c9",
     "leaflet-control-geocoder": "^3.1.0",
     "leaflet.locatecontrol": "^0.83.0"
   },

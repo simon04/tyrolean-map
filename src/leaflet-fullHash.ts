@@ -10,7 +10,7 @@ export default class LeafletHash {
   changeTimeout = null;
   isListening = false;
   constructor(map: L.Map, options: Record<string, L.Layer>) {
-    this.onHashChange = L.Util.bind(this.onHashChange, this);
+    this.onHashChange = this.onHashChange.bind(this);
     if (map) {
       this.init(map, options);
     }

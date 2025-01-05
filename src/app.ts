@@ -1,5 +1,5 @@
 import * as L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
+import 'leaflet.css';
 import {Geocoder as GeocoderControl} from 'leaflet-control-geocoder';
 import 'leaflet-control-geocoder/style.css';
 import {LocateControl} from 'leaflet.locatecontrol';
@@ -13,16 +13,6 @@ const map = L.map('map').setView([47.3, 11.3], 9);
 map.attributionControl.setPrefix(false);
 const collapsed = window.matchMedia && window.matchMedia('all and (max-width: 700px)').matches;
 const layers = new CollapsableLayerControl({}, {}, {collapsed: collapsed}).addTo(map);
-
-delete (L.Icon.Default.prototype as any)._getIconUrl;
-import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
-import iconUrl from 'leaflet/dist/images/marker-icon.png';
-import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl,
-  iconUrl,
-  shadowUrl,
-});
 
 new GeocoderControl({
   position: 'topleft',
