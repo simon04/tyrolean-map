@@ -260,7 +260,7 @@ layers.addBaseLayer(allMapLayers['OpenTopoMap'], 'OpenTopoMap');
 });
 
 allMapLayers['OpenSlopeMap'] = L.tileLayer(
-  'https://tileserver.openslopemap.org/OSloOVERLAY_LR_All_16/{z}/{x}/{y}.png',
+  'https://tileserver{s}.openslopemap.org/OSloOVERLAY_LR_All_16/{z}/{x}/{y}.png',
   {
     opacity: 0.7,
     subdomains: '1234',
