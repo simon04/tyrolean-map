@@ -1,7 +1,7 @@
 {
   "name": "tyrolean-map",
   "version": "1.0.0",
-  "packageManager": "yarn@4.7.0",
+  "packageManager": "yarn@4.9.1",
   "description": "Frontend to various maps published by Land Tirol and South Tyrol as Open Government Data",
   "main": "app.ts",
   "scripts": {
@@ -30,6 +30,6 @@
     "@types/leaflet.locatecontrol": "^0.74.6",
     "prettier": "^3.5.3",
     "pretty-quick": "^4.1.1",
-    "vite": "^6.2.2"
+    "vite": "^6.3.2"
   }
 }
