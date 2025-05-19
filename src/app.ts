@@ -1,4 +1,4 @@
-import * as L from 'leaflet';
+import {Map, Icon, Layer, TileLayer} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {Geocoder as GeocoderControl} from 'leaflet-control-geocoder';
 import 'leaflet-control-geocoder/style.css';
@@ -8,17 +8,17 @@ import LeafletHash from './leaflet-fullHash';
 import {CollapsableLayerControl} from './leaflet-collapsable-layer-control';
 import './style.css';
 
-const map = L.map('map').setView([47.3, 11.3], 9);
+const map = new Map('map').setView([47.3, 11.3], 9);
 
 map.attributionControl.setPrefix(false);
 const collapsed = window.matchMedia && window.matchMedia('all and (max-width: 700px)').matches;
 const layers = new CollapsableLayerControl({}, {}, {collapsed: collapsed}).addTo(map);
 
-delete (L.Icon.Default.prototype as any)._getIconUrl;
+delete (Icon.Default.prototype as any)._getIconUrl;
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
-L.Icon.Default.mergeOptions({
+Icon.Default.mergeOptions({
   iconRetinaUrl,
   iconUrl,
   shadowUrl,
@@ -50,7 +50,7 @@ const attributionST_CC0 = [
 ];
 const attributionOsm = '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> (ODbL)';
 
-const allMapLayers: Record<string, L.Layer> = {};
+const allMapLayers: Record<string, Layer> = {};
 
 [
   {id: 'gdi_base_summer', title: 'Elektronische Karte Tirol: Sommer'},
@@ -58,7 +58,7 @@ const allMapLayers: Record<string, L.Layer> = {};
 ].forEach(({id, title}, idx) => {
   const imprint =
     '<a href="https://www.tirol.gv.at/statistik-budget/tiris/tiris-geodatendienste/impressum-elektronische-karte-tirol/">Elektronische Karte Tirol</a>';
-  const layer = L.tileLayer(`https://wmts.kartetirol.at/wmts/${id}/${id}/{z}/{x}/{y}.jpeg80`, {
+  const layer = new TileLayer(`https://wmts.kartetirol.at/wmts/${id}/${id}/{z}/{x}/{y}.jpeg80`, {
     maxZoom: 18,
     attribution: [...attribution, imprint, attributionOsm].join(', '),
   });
@@ -77,7 +77,7 @@ const allMapLayers: Record<string, L.Layer> = {};
     title: 'Gelände Tirol: Oberflächenmodell',
   },
 ].forEach(({id, title}) => {
-  const layer = L.tileLayer.wms(
+  const layer = new TileLayer.WMS(
     'https://gis.tirol.gv.at/arcgis/services/Service_Public/terrain/MapServer/WMSServer',
     {
       layers: id,
@@ -107,7 +107,7 @@ const allMapLayers: Record<string, L.Layer> = {};
     title: 'Orthofoto Tirol: <abbr title="photographisches Infrarot">CIR</abbr> aktuell',
   },
 ].forEach(({id, title}) => {
-  const layer = L.tileLayer.wms(
+  const layer = new TileLayer.WMS(
     'https://gis.tirol.gv.at/arcgis/services/Service_Public/orthofoto/MapServer/WMSServer',
     {
       layers: id,
@@ -127,7 +127,7 @@ const allMapLayers: Record<string, L.Layer> = {};
   {id: 'bmaporthofoto30cm/normal', title: 'basemap.at Orthofoto', format: 'jpg'},
   {id: 'bmapgelaende/grau', title: 'basemap.at Gelände', format: 'jpg'},
 ].forEach(({id, title, format}) => {
-  const layer = L.tileLayer(
+  const layer = new TileLayer(
     `https://mapsneu.wien.gv.at/basemap/${id}/google3857/{z}/{y}/{x}.${format}`,
     {
       subdomains: '1234',
@@ -143,7 +143,7 @@ const allMapLayers: Record<string, L.Layer> = {};
 });
 
 [{id: 'p_bz-BaseMap%3ABasemap-Standard', title: 'South Tyrol Base Map'}].forEach(({id, title}) => {
-  const layer = L.tileLayer(
+  const layer = new TileLayer(
     `https://geoservices.buergernetz.bz.it/geoserver/gwc/service/wmts/?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${id}&STYLE=default&TILEMATRIXSET=GoogleMapsCompatible&TILEMATRIX=GoogleMapsCompatible%3A{z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg`,
     {
       maxZoom: 20,
@@ -175,7 +175,7 @@ const allMapLayers: Record<string, L.Layer> = {};
     // Slope/Hangneigung/Clivometria
   },
 ].forEach(({id, title}) => {
-  const layer = L.tileLayer.wms('https://geoservices1.civis.bz.it/geoserver/p_bz-Elevation/wms', {
+  const layer = new TileLayer.WMS('https://geoservices1.civis.bz.it/geoserver/p_bz-Elevation/wms', {
     layers: id,
     format: 'image/jpeg',
     attribution: attributionST_CC0.join(', '),
@@ -204,7 +204,7 @@ const allMapLayers: Record<string, L.Layer> = {};
     title: 'Orthofoto South Tyrol: 2023 <abbr title="photographisches Infrarot">CIR</abbr>',
   },
 ].forEach(({id, title}) => {
-  const layer = L.tileLayer.wms(
+  const layer = new TileLayer.WMS(
     'https://geoservices.buergernetz.bz.it/mapproxy/p_bz-Orthoimagery/wms',
     {
       layers: id,
@@ -217,13 +217,13 @@ const allMapLayers: Record<string, L.Layer> = {};
   allMapLayers[id] = layer;
 });
 
-allMapLayers['OSM'] = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+allMapLayers['OSM'] = new TileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
   attribution: attributionOsm,
 });
 layers.addBaseLayer(allMapLayers['OSM'], 'OpenStreetMap');
 
-allMapLayers['OpenTopoMap'] = L.tileLayer('https://tile.opentopomap.org/{z}/{x}/{y}.png', {
+allMapLayers['OpenTopoMap'] = new TileLayer('https://tile.opentopomap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
   attribution: [
     attributionOsm,
@@ -243,7 +243,7 @@ layers.addBaseLayer(allMapLayers['OpenTopoMap'], 'OpenTopoMap');
     title: 'Gelände Tirol: Geländeneigung',
   },
 ].forEach(({id, title}) => {
-  const layer = L.tileLayer.wms(
+  const layer = new TileLayer.WMS(
     'https://gis.tirol.gv.at/arcgis/services/Service_Public/terrain/MapServer/WMSServer',
     {
       layers: id,
@@ -259,7 +259,7 @@ layers.addBaseLayer(allMapLayers['OpenTopoMap'], 'OpenTopoMap');
   allMapLayers[id] = layer;
 });
 
-allMapLayers['OpenSlopeMap'] = L.tileLayer(
+allMapLayers['OpenSlopeMap'] = new TileLayer(
   'https://tileserver{s}.openslopemap.org/OSloOVERLAY_LR_All_16/{z}/{x}/{y}.png',
   {
     opacity: 0.7,

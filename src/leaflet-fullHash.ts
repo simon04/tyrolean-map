@@ -1,5 +1,5 @@
 // slightly modified version of https://github.com/KoGor/leaflet-fullHash by "KoGor"
-import * as L from 'leaflet';
+import {LatLng, Util} from 'leaflet';
 
 export default class LeafletHash {
   map: L.Map = null;
@@ -10,7 +10,7 @@ export default class LeafletHash {
   changeTimeout = null;
   isListening = false;
   constructor(map: L.Map, options: Record<string, L.Layer>) {
-    this.onHashChange = L.Util.bind(this.onHashChange, this);
+    this.onHashChange = this.onHashChange.bind(this);
     if (map) {
       this.init(map, options);
     }
@@ -30,7 +30,7 @@ export default class LeafletHash {
         return false;
       } else {
         return {
-          center: new L.LatLng(lat, lon),
+          center: new LatLng(lat, lon),
           zoom: zoom,
           layers: layers,
         };
@@ -64,7 +64,7 @@ export default class LeafletHash {
 
   init(map: L.Map, options: Record<string, L.Layer>) {
     this.map = map;
-    L.Util.setOptions(this, options);
+    Util.setOptions(this, options);
 
     // reset the hash
     this.lastHash = null;
@@ -114,8 +114,7 @@ export default class LeafletHash {
       this.map.setView(parsed.center, parsed.zoom);
       const layers = parsed.layers;
       const options = this.options;
-      console.log(layers);
-      //Add/remove layers
+
       if (Array.isArray(layers) && layers.every((l) => options[l])) {
         this.map.eachLayer((layer) => this.map.removeLayer(layer));
         layers.forEach((l) => this.map.addLayer(options[l]));

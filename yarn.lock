@@ -377,21 +377,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/leaflet.locatecontrol@npm:^0.74.6":
-  version: 0.74.6
-  resolution: "@types/leaflet.locatecontrol@npm:0.74.6"
+"@types/leaflet.locatecontrol@npm:^0.82.0":
+  version: 0.82.0
+  resolution: "@types/leaflet.locatecontrol@npm:0.82.0"
   dependencies:
     "@types/leaflet": "npm:*"
-  checksum: 10c0/4969ee6238ed797f4a269d9b603af9fc78d49ecd1ce8f074b996010ae3658030569aeca028d9c210b97095f97bd2acf7b6bc39bdbb507b6b186eb46fc8c7c5b7
+  checksum: 10c0/4bd0337016998d4753397ca0db04b1f9207d5d8caa1092169c80af5389e7ea58b1054a0de5d9d794e6a11e681379d8d9ec9b547625d4cc9239c0fd1a837c7ea3
   languageName: node
   linkType: hard
 
-"@types/leaflet@npm:*, @types/leaflet@npm:^1.9.15":
+"@types/leaflet@npm:*":
   version: 1.9.15
   resolution: "@types/leaflet@npm:1.9.15"
   dependencies:
     "@types/geojson": "npm:*"
   checksum: 10c0/6537da4107f833e38359ca9e98e2c161d686af58ff8873c65c102e146b881761ca6212b08fae4e755380ee001073f856ee46c5ea25592a53f39e2b9e5d934d42
+  languageName: node
+  linkType: hard
+
+"@types/leaflet@npm:^1.9.18":
+  version: 1.9.18
+  resolution: "@types/leaflet@npm:1.9.18"
+  dependencies:
+    "@types/geojson": "npm:*"
+  checksum: 10c0/376ef5b5d60664e8cc22908a75149c020ad668330ef61f0e7486a61e85285b3f1b9dafcce9462bd3375be537e4d1227fc0c0524e5c071a4a45ed16bf3fc71608
   languageName: node
   linkType: hard
 
@@ -884,31 +893,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leaflet-control-geocoder@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "leaflet-control-geocoder@npm:3.1.0"
+"leaflet-control-geocoder@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "leaflet-control-geocoder@npm:3.2.0"
   dependencies:
     open-location-code: "npm:^1.0.3"
   peerDependencies:
-    leaflet: ^1.6.0
+    leaflet: ^1.6.0 || ^2.0.0
   dependenciesMeta:
     open-location-code:
       optional: true
-  checksum: 10c0/fd9c92daca8695b113f80e56540d753196baa74a952f1c99863ba10eab9899813bf63dec935889a49d11a93ace2dcc78170e351510e742f72bf8277a79ba9103
+  checksum: 10c0/da85af31f8e5bb2760739b1830c847d50cd5c1833b461f0fabe6e39be8a07d351ccdd7b1fb4da1c6550b3f86eabeb5a411f445659cd9260bd1060c8d536f747e
   languageName: node
   linkType: hard
 
-"leaflet.locatecontrol@npm:^0.83.0":
-  version: 0.83.0
-  resolution: "leaflet.locatecontrol@npm:0.83.0"
-  checksum: 10c0/b03aa0a74bc4af25c54f0167501a18f24e6d91abbca2cb60ca240ca5c5b938d88d84e1866ce91e2b563dc7cad5a8382c86fad2609759a5ecd3f5dd71bd9c8035
+"leaflet.locatecontrol@jeffreykog/leaflet-locatecontrol#leaflet-v2":
+  version: 0.84.2
+  resolution: "leaflet.locatecontrol@https://github.com/jeffreykog/leaflet-locatecontrol.git#commit=65a477953a6292bc00b55cc86866abbc49e6dcec"
+  peerDependencies:
+    leaflet: ^1.9.0 || ^2.0.0
+  checksum: 10c0/7722dc720015a2efd6963c041ca1717881ded6d926185cb21d5e91a678643d69a1f790c12913b50e3e883a90453bfba952be64b5089c94e05583930a4cb94efb
   languageName: node
   linkType: hard
 
-"leaflet@npm:^1.9.4":
-  version: 1.9.4
-  resolution: "leaflet@npm:1.9.4"
-  checksum: 10c0/f639441dbb7eb9ae3fcd29ffd7d3508f6c6106892441634b0232fafb9ffb1588b05a8244ec7085de2c98b5ed703894df246898477836cfd0ce5b96d4717b5ca1
+"leaflet@npm:2.0.0-alpha":
+  version: 2.0.0-alpha
+  resolution: "leaflet@npm:2.0.0-alpha"
+  checksum: 10c0/38c1c39a3ee919a3392df067b55bab45b5e66cdac6d49d142ac4c04f8fbc8730228fa0408cc4ffe48128f5a2366c4a69d9713d2b5cfcbcc9ea4d2ac5593fb36c
   languageName: node
   linkType: hard
 
@@ -1507,11 +1518,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "tyrolean-map@workspace:."
   dependencies:
-    "@types/leaflet": "npm:^1.9.15"
-    "@types/leaflet.locatecontrol": "npm:^0.74.6"
-    leaflet: "npm:^1.9.4"
-    leaflet-control-geocoder: "npm:^3.1.0"
-    leaflet.locatecontrol: "npm:^0.83.0"
+    "@types/leaflet": "npm:^1.9.18"
+    "@types/leaflet.locatecontrol": "npm:^0.82.0"
+    leaflet: "npm:2.0.0-alpha"
+    leaflet-control-geocoder: "npm:^3.2.0"
+    leaflet.locatecontrol: "jeffreykog/leaflet-locatecontrol#leaflet-v2"
     prettier: "npm:^3.5.3"
     pretty-quick: "npm:^4.1.1"
     vite: "npm:^6.3.2"
