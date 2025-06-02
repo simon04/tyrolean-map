@@ -30,6 +30,6 @@
     "@types/leaflet.locatecontrol": "^0.82.0",
     "prettier": "^3.5.3",
     "pretty-quick": "^4.1.1",
-    "vite": "^6.3.2"
+    "vite": "npm:rolldown-vite@6.3.16"
   }
 }
