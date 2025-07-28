@@ -1,7 +1,6 @@
 {
   "name": "tyrolean-map",
   "version": "1.0.0",
-  "packageManager": "yarn@4.9.2",
   "description": "Frontend to various maps published by Land Tirol and South Tyrol as Open Government Data",
   "main": "app.ts",
   "scripts": {
