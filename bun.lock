@@ -4,8 +4,8 @@
     "": {
       "name": "tyrolean-map",
       "dependencies": {
-        "leaflet": "2.0.0-alpha",
-        "leaflet-control-geocoder": "^3.2.0",
+        "leaflet": "^2.0.0-alpha.1",
+        "leaflet-control-geocoder": "^3.3.0",
         "leaflet.locatecontrol": "jeffreykog/leaflet-locatecontrol#leaflet-v2",
       },
       "devDependencies": {
@@ -76,9 +76,9 @@
 
     "ignore": ["ignore@7.0.5", "", {}, "sha512-Hs59xBNfUIunMFgWAbGX5cq6893IbWg4KnrjbYwX3tx0ztorVgTDA6B2sxf8ejHJ4wz8BqGUMYlnzNBer5NvGg=="],
 
-    "leaflet": ["leaflet@2.0.0-alpha", "", {}, "sha512-RnEJ3UYcuHPFFsDq0e2/QovyIaR3hhwiQpq3wrKnvprA/lsiAJpcxvkRZL3UwQ2xnKm1r2pYcMa+rcSKVwEQag=="],
+    "leaflet": ["leaflet@2.0.0-alpha.1", "", {}, "sha512-2EJU27z/wljOgQCyybRkfrm5Xc3uy6huKehh0UAPsrAdwnSMxaplsqCl9cXPAuDm6D7uL6PCznYMDVIsaAdSdA=="],
 
-    "leaflet-control-geocoder": ["leaflet-control-geocoder@3.2.0", "", { "optionalDependencies": { "open-location-code": "^1.0.3" }, "peerDependencies": { "leaflet": "^1.6.0 || ^2.0.0" } }, "sha512-4izW1bDWUTJ5As4zlVMZvx08EswAEURYiaau5JK6iXIQ2T9isn/70M5x+rglf0vGtw1zpC+7fKsj2E/nBjQPgg=="],
+    "leaflet-control-geocoder": ["leaflet-control-geocoder@3.3.0", "", { "optionalDependencies": { "open-location-code": "^1.0.3" }, "peerDependencies": { "leaflet": "^1.6.0 || ^2.0.0" } }, "sha512-Fq5KSomfLQDjVXr/7UrDsQGNMcdCgjLEqeCXx+BECcJlBRlncIgYJo5vJnPN7kqnZipt+hi6pVNDNWUyn99O+Q=="],
 
     "leaflet.locatecontrol": ["leaflet.locatecontrol@github:jeffreykog/leaflet-locatecontrol#65a4779", { "peerDependencies": { "leaflet": "^1.9.0 || ^2.0.0" } }, "jeffreykog-leaflet-locatecontrol-65a4779"],
 
