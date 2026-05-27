@@ -4,10 +4,11 @@
   "description": "Frontend to various maps published by Land Tirol and South Tyrol as Open Government Data",
   "main": "app.ts",
   "scripts": {
-    "build": "vite build",
-    "dev": "vite",
-    "fix:style": "prettier --write index.html src/",
-    "test": "prettier --check index.html src/"
+    "build": "vp build",
+    "dev": "vp dev",
+    "fix:style": "vp fmt index.html src/",
+    "test": "vp fmt --check index.html src/",
+    "prepare": "vp config"
   },
   "repository": {
     "type": "git",
@@ -27,9 +28,8 @@
   "devDependencies": {
     "@types/leaflet": "^1.9.18",
     "@types/leaflet.locatecontrol": "^0.85.1",
-    "prettier": "^3.5.3",
-    "pretty-quick": "^4.1.1",
-    "vite": "^8.0.0-beta.1"
+    "vite": "catalog:",
+    "vite-plus": "catalog:"
   },
   "packageManager": "pnpm@11.4.0"
 }
