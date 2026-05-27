@@ -22,13 +22,14 @@
   "dependencies": {
     "leaflet": "^2.0.0-alpha.1",
     "leaflet-control-geocoder": "^3.3.0",
-    "leaflet.locatecontrol": "jeffreykog/leaflet-locatecontrol#leaflet-v2"
+    "leaflet.locatecontrol": "^0.90.0"
   },
   "devDependencies": {
     "@types/leaflet": "^1.9.18",
-    "@types/leaflet.locatecontrol": "^0.82.0",
+    "@types/leaflet.locatecontrol": "^0.85.1",
     "prettier": "^3.5.3",
     "pretty-quick": "^4.1.1",
     "vite": "^8.0.0-beta.1"
-  }
+  },
+  "packageManager": "pnpm@11.4.0"
 }
