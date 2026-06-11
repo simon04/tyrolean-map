@@ -310,10 +310,14 @@ const geocoderApi: MaplibreGeocoderApi = {
   forwardGeocode: async ({query, limit}) => {
     const features: CarmenGeojsonFeature[] = [];
     try {
-      const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
-        String(query ?? ''),
-      )}&format=geojson&polygon_geojson=0&addressdetails=1&limit=${limit ?? 5}`;
-      const response = await fetch(url);
+      const params = new URLSearchParams({
+        q: String(query ?? ''),
+        format: 'geojson',
+        polygon_geojson: '0',
+        addressdetails: '1',
+        limit: String(limit ?? 5),
+      });
+      const response = await fetch(`https://nominatim.openstreetmap.org/search?${params}`);
       const geojson = await response.json();
       for (const feature of geojson.features) {
         const [minX, minY, maxX, maxY] = feature.bbox ?? [];
