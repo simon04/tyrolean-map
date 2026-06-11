@@ -33,15 +33,10 @@ const attributionOsm = '<a href="https://www.openstreetmap.org/copyright">OpenSt
 interface XyzOptions {
   maxzoom?: number;
   attribution: string;
-  /** Subdomains substituted for the `{s}` placeholder in the URL. */
-  subdomains?: string;
 }
 
 function xyzSource(url: string, opts: XyzOptions): RasterSourceSpecification {
-  const tiles =
-    opts.subdomains && url.includes('{s}')
-      ? opts.subdomains.split('').map((s) => url.replace('{s}', s))
-      : [url];
+  const tiles = [url];
   const source: RasterSourceSpecification = {type: 'raster', tiles, tileSize: 256};
   if (opts.maxzoom != null) source.maxzoom = opts.maxzoom;
   if (opts.attribution) source.attribution = opts.attribution;
@@ -272,25 +267,21 @@ overlays.push({
   id: 'OpenSlopeMap',
   title: 'OpenSlopeMap',
   paint: {'raster-opacity': 0.7},
-  source: xyzSource(
-    'https://tileserver{s}.openslopemap.org/OSloOVERLAY_LR_All_16/{z}/{x}/{y}.png',
-    {
-      subdomains: '1234',
-      attribution:
-        '<a href="https://www.openslopemap.org/projekt/lizenzen/">OpenSlopeMap</a> (<a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>)' +
-        '<div class="legend">' +
-        '<i style="color:#FFFFFF">■</i> 0°–9°, ' +
-        '<i style="color:#00FF00">■</i> 10°–29°, ' +
-        '<i style="color:#F0E100">■</i> 30°–34°, ' +
-        '<i style="color:#FF9B00">■</i> 35°–39°, ' +
-        '<i style="color:#FF0000">■</i> 40°–42°, ' +
-        '<i style="color:#FF26FF">■</i> 43°–45°, ' +
-        '<i style="color:#A719FF">■</i> 46°–49°, ' +
-        '<i style="color:#6E00FF">■</i> 50°–54°, ' +
-        '<i style="color:#0000FF">■</i> 55°–90°' +
-        '</div>',
-    },
-  ),
+  source: xyzSource('https://tileserver1.openslopemap.org/OSloOVERLAY_LR_All_16/{z}/{x}/{y}.png', {
+    attribution:
+      '<a href="https://www.openslopemap.org/projekt/lizenzen/">OpenSlopeMap</a> (<a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>)' +
+      '<div class="legend">' +
+      '<i style="color:#FFFFFF">■</i> 0°–9°, ' +
+      '<i style="color:#00FF00">■</i> 10°–29°, ' +
+      '<i style="color:#F0E100">■</i> 30°–34°, ' +
+      '<i style="color:#FF9B00">■</i> 35°–39°, ' +
+      '<i style="color:#FF0000">■</i> 40°–42°, ' +
+      '<i style="color:#FF26FF">■</i> 43°–45°, ' +
+      '<i style="color:#A719FF">■</i> 46°–49°, ' +
+      '<i style="color:#6E00FF">■</i> 50°–54°, ' +
+      '<i style="color:#0000FF">■</i> 55°–90°' +
+      '</div>',
+  }),
 });
 
 const DEFAULT_BASE = baseLayers[0].id;
