@@ -4,7 +4,6 @@ import maplibregl, {
   Map,
   NavigationControl,
 } from 'maplibre-gl';
-import type {RasterSourceSpecification} from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import MaplibreGeocoder from '@maplibre/maplibre-gl-geocoder';
 import type {CarmenGeojsonFeature, MaplibreGeocoderApi} from '@maplibre/maplibre-gl-geocoder';
@@ -30,35 +29,21 @@ const attributionST_CC0 = [
 ];
 const attributionOsm = '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> (ODbL)';
 
-interface WmsOptions {
-  layers: string;
-  maxzoom?: number;
-  attribution: string;
-  format?: string;
-}
-
-function wmsSource(baseUrl: string, opts: WmsOptions): RasterSourceSpecification {
+function wmsTileUrl(baseUrl: string, layers: string, format?: string): string {
   const params = new URLSearchParams({
     SERVICE: 'WMS',
     REQUEST: 'GetMap',
     VERSION: '1.1.1',
-    LAYERS: opts.layers,
+    LAYERS: layers,
     STYLES: '',
-    FORMAT: opts.format ?? 'image/jpeg',
+    FORMAT: format ?? 'image/jpeg',
     TRANSPARENT: 'false',
     SRS: 'EPSG:3857',
     WIDTH: '256',
     HEIGHT: '256',
   });
   // The BBOX placeholder must stay un-encoded for MapLibre to substitute it.
-  const source: RasterSourceSpecification = {
-    type: 'raster',
-    tiles: [`${baseUrl}?${params.toString()}&BBOX={bbox-epsg-3857}`],
-    tileSize: 256,
-  };
-  if (opts.maxzoom != null) source.maxzoom = opts.maxzoom;
-  if (opts.attribution) source.attribution = opts.attribution;
-  return source;
+  return `${baseUrl}?${params.toString()}&BBOX={bbox-epsg-3857}`;
 }
 
 const baseLayers: RasterLayerDef[] = [];
@@ -92,10 +77,18 @@ const overlays: RasterLayerDef[] = [];
   baseLayers.push({
     id,
     title,
-    source: wmsSource(
-      'https://gis.tirol.gv.at/arcgis/services/Service_Public/terrain/MapServer/WMSServer',
-      {layers: id, maxzoom: 20, attribution: attribution.join(', ')},
-    ),
+    source: {
+      type: 'raster',
+      tiles: [
+        wmsTileUrl(
+          'https://gis.tirol.gv.at/arcgis/services/Service_Public/terrain/MapServer/WMSServer',
+          id,
+        ),
+      ],
+      tileSize: 256,
+      maxzoom: 20,
+      attribution: attribution.join(', '),
+    },
   });
 });
 
@@ -120,10 +113,18 @@ const overlays: RasterLayerDef[] = [];
   baseLayers.push({
     id,
     title,
-    source: wmsSource(
-      'https://gis.tirol.gv.at/arcgis/services/Service_Public/orthofoto/MapServer/WMSServer',
-      {layers: id, maxzoom: 20, attribution: attribution.join(', ')},
-    ),
+    source: {
+      type: 'raster',
+      tiles: [
+        wmsTileUrl(
+          'https://gis.tirol.gv.at/arcgis/services/Service_Public/orthofoto/MapServer/WMSServer',
+          id,
+        ),
+      ],
+      tileSize: 256,
+      maxzoom: 20,
+      attribution: attribution.join(', '),
+    },
   });
 });
 
@@ -178,10 +179,12 @@ const overlays: RasterLayerDef[] = [];
   baseLayers.push({
     id,
     title,
-    source: wmsSource('https://geoservices1.civis.bz.it/geoserver/p_bz-Elevation/wms', {
-      layers: id,
+    source: {
+      type: 'raster',
+      tiles: [wmsTileUrl('https://geoservices1.civis.bz.it/geoserver/p_bz-Elevation/wms', id)],
+      tileSize: 256,
       attribution: attributionST_CC0.join(', '),
-    }),
+    },
   });
 });
 
@@ -209,11 +212,15 @@ const overlays: RasterLayerDef[] = [];
   baseLayers.push({
     id,
     title,
-    source: wmsSource('https://geoservices.buergernetz.bz.it/mapproxy/p_bz-Orthoimagery/wms', {
-      layers: id,
+    source: {
+      type: 'raster',
+      tiles: [
+        wmsTileUrl('https://geoservices.buergernetz.bz.it/mapproxy/p_bz-Orthoimagery/wms', id),
+      ],
+      tileSize: 256,
       maxzoom: 20,
       attribution: attributionST.join(', '),
-    }),
+    },
   });
 });
 
@@ -253,17 +260,21 @@ baseLayers.push({
   overlays.push({
     id,
     title,
-    source: wmsSource(
-      'https://gis.tirol.gv.at/arcgis/services/Service_Public/terrain/MapServer/WMSServer',
-      {
-        layers: id,
-        maxzoom: 20,
-        attribution: [
-          ...attribution,
-          `<img src="https://gis.tirol.gv.at/arcgis/services/Service_Public/terrain/MapServer/WMSServer?request=GetLegendGraphic%26version=1.3.0%26format=image/png%26layer=${id}">`,
-        ].join(', '),
-      },
-    ),
+    source: {
+      type: 'raster',
+      tiles: [
+        wmsTileUrl(
+          'https://gis.tirol.gv.at/arcgis/services/Service_Public/terrain/MapServer/WMSServer',
+          id,
+        ),
+      ],
+      tileSize: 256,
+      maxzoom: 20,
+      attribution: [
+        ...attribution,
+        `<img src="https://gis.tirol.gv.at/arcgis/services/Service_Public/terrain/MapServer/WMSServer?request=GetLegendGraphic%26version=1.3.0%26format=image/png%26layer=${id}">`,
+      ].join(', '),
+    },
   });
 });
 
