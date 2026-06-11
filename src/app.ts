@@ -30,19 +30,6 @@ const attributionST_CC0 = [
 ];
 const attributionOsm = '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> (ODbL)';
 
-interface XyzOptions {
-  maxzoom?: number;
-  attribution: string;
-}
-
-function xyzSource(url: string, opts: XyzOptions): RasterSourceSpecification {
-  const tiles = [url];
-  const source: RasterSourceSpecification = {type: 'raster', tiles, tileSize: 256};
-  if (opts.maxzoom != null) source.maxzoom = opts.maxzoom;
-  if (opts.attribution) source.attribution = opts.attribution;
-  return source;
-}
-
 interface WmsOptions {
   layers: string;
   maxzoom?: number;
@@ -87,10 +74,13 @@ const overlays: RasterLayerDef[] = [];
   baseLayers.push({
     id,
     title,
-    source: xyzSource(`https://wmts.kartetirol.at/wmts/${id}/${id}/{z}/{x}/{y}.jpeg80`, {
+    source: {
+      type: 'raster',
+      tiles: [`https://wmts.kartetirol.at/wmts/${id}/${id}/{z}/{x}/{y}.jpeg80`],
+      tileSize: 256,
       maxzoom: 18,
       attribution: [...attribution, imprint, attributionOsm].join(', '),
-    }),
+    },
   });
 });
 
@@ -148,13 +138,16 @@ const overlays: RasterLayerDef[] = [];
   baseLayers.push({
     id,
     title,
-    source: xyzSource(`https://mapsneu.wien.gv.at/basemap/${id}/google3857/{z}/{y}/{x}.${format}`, {
+    source: {
+      type: 'raster',
+      tiles: [`https://mapsneu.wien.gv.at/basemap/${id}/google3857/{z}/{y}/{x}.${format}`],
+      tileSize: 256,
       maxzoom: 19,
       attribution: [
         'Grundkarte: <a href="https://www.basemap.at/">basemap.at</a>',
         '<a href="https://creativecommons.org/licenses/by/4.0/deed.de">CC BY 4.0</a>',
       ].join(', '),
-    }),
+    },
   });
 });
 
@@ -163,10 +156,15 @@ const overlays: RasterLayerDef[] = [];
   baseLayers.push({
     id,
     title,
-    source: xyzSource(
-      `https://geoservices.buergernetz.bz.it/geoserver/gwc/service/wmts/?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${id}&STYLE=default&TILEMATRIXSET=GoogleMapsCompatible&TILEMATRIX=GoogleMapsCompatible%3A{z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg`,
-      {maxzoom: 20, attribution: [...attributionST, attributionOsm].join(', ')},
-    ),
+    source: {
+      type: 'raster',
+      tiles: [
+        `https://geoservices.buergernetz.bz.it/geoserver/gwc/service/wmts/?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${id}&STYLE=default&TILEMATRIXSET=GoogleMapsCompatible&TILEMATRIX=GoogleMapsCompatible%3A{z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg`,
+      ],
+      tileSize: 256,
+      maxzoom: 20,
+      attribution: [...attributionST, attributionOsm].join(', '),
+    },
   });
 });
 
@@ -222,23 +220,29 @@ const overlays: RasterLayerDef[] = [];
 baseLayers.push({
   id: 'OSM',
   title: 'OpenStreetMap',
-  source: xyzSource('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  source: {
+    type: 'raster',
+    tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
+    tileSize: 256,
     maxzoom: 19,
     attribution: attributionOsm,
-  }),
+  },
 });
 
 baseLayers.push({
   id: 'OpenTopoMap',
   title: 'OpenTopoMap',
-  source: xyzSource('https://tile.opentopomap.org/{z}/{x}/{y}.png', {
+  source: {
+    type: 'raster',
+    tiles: ['https://tile.opentopomap.org/{z}/{x}/{y}.png'],
+    tileSize: 256,
     maxzoom: 19,
     attribution: [
       attributionOsm,
       '<a href="http://viewfinderpanoramas.org">SRTM</a>',
       'Kartendarstellung: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
     ].join(', '),
-  }),
+  },
 });
 
 // Overlays
@@ -267,7 +271,10 @@ overlays.push({
   id: 'OpenSlopeMap',
   title: 'OpenSlopeMap',
   paint: {'raster-opacity': 0.7},
-  source: xyzSource('https://tileserver1.openslopemap.org/OSloOVERLAY_LR_All_16/{z}/{x}/{y}.png', {
+  source: {
+    type: 'raster',
+    tiles: ['https://tileserver1.openslopemap.org/OSloOVERLAY_LR_All_16/{z}/{x}/{y}.png'],
+    tileSize: 256,
     attribution:
       '<a href="https://www.openslopemap.org/projekt/lizenzen/">OpenSlopeMap</a> (<a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>)' +
       '<div class="legend">' +
@@ -281,7 +288,7 @@ overlays.push({
       '<i style="color:#6E00FF">■</i> 50°–54°, ' +
       '<i style="color:#0000FF">■</i> 55°–90°' +
       '</div>',
-  }),
+  },
 });
 
 const DEFAULT_BASE = baseLayers[0].id;
