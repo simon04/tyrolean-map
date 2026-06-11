@@ -310,6 +310,7 @@ const map = new Map({
   center: [11.3, 47.3],
   zoom: 8, // Leaflet zoom 9 with 256px tiles
   attributionControl: false,
+  dragRotate: false,
 });
 
 map.addControl(new NavigationControl({showCompass: false}), 'top-left');
