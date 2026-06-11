@@ -40,7 +40,7 @@ interface XyzOptions {
 function xyzSource(url: string, opts: XyzOptions): RasterSourceSpecification {
   const tiles =
     opts.subdomains && url.includes('{s}')
-      ? [...opts.subdomains].map((s) => url.replace('{s}', s))
+      ? opts.subdomains.split('').map((s) => url.replace('{s}', s))
       : [url];
   const source: RasterSourceSpecification = {type: 'raster', tiles, tileSize: 256};
   if (opts.maxzoom != null) source.maxzoom = opts.maxzoom;
@@ -272,22 +272,25 @@ overlays.push({
   id: 'OpenSlopeMap',
   title: 'OpenSlopeMap',
   paint: {'raster-opacity': 0.7},
-  source: xyzSource('https://tileserver{s}.openslopemap.org/OSloOVERLAY_LR_All_16/{z}/{x}/{y}.png', {
-    subdomains: '1234',
-    attribution:
-      '<a href="https://www.openslopemap.org/projekt/lizenzen/">OpenSlopeMap</a> (<a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>)' +
-      '<div class="legend">' +
-      '<i style="color:#FFFFFF">■</i> 0°–9°, ' +
-      '<i style="color:#00FF00">■</i> 10°–29°, ' +
-      '<i style="color:#F0E100">■</i> 30°–34°, ' +
-      '<i style="color:#FF9B00">■</i> 35°–39°, ' +
-      '<i style="color:#FF0000">■</i> 40°–42°, ' +
-      '<i style="color:#FF26FF">■</i> 43°–45°, ' +
-      '<i style="color:#A719FF">■</i> 46°–49°, ' +
-      '<i style="color:#6E00FF">■</i> 50°–54°, ' +
-      '<i style="color:#0000FF">■</i> 55°–90°' +
-      '</div>',
-  }),
+  source: xyzSource(
+    'https://tileserver{s}.openslopemap.org/OSloOVERLAY_LR_All_16/{z}/{x}/{y}.png',
+    {
+      subdomains: '1234',
+      attribution:
+        '<a href="https://www.openslopemap.org/projekt/lizenzen/">OpenSlopeMap</a> (<a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>)' +
+        '<div class="legend">' +
+        '<i style="color:#FFFFFF">■</i> 0°–9°, ' +
+        '<i style="color:#00FF00">■</i> 10°–29°, ' +
+        '<i style="color:#F0E100">■</i> 30°–34°, ' +
+        '<i style="color:#FF9B00">■</i> 35°–39°, ' +
+        '<i style="color:#FF0000">■</i> 40°–42°, ' +
+        '<i style="color:#FF26FF">■</i> 43°–45°, ' +
+        '<i style="color:#A719FF">■</i> 46°–49°, ' +
+        '<i style="color:#6E00FF">■</i> 50°–54°, ' +
+        '<i style="color:#0000FF">■</i> 55°–90°' +
+        '</div>',
+    },
+  ),
 });
 
 const DEFAULT_BASE = baseLayers[0].id;
@@ -310,7 +313,7 @@ const geocoderApi: MaplibreGeocoderApi = {
     const features: CarmenGeojsonFeature[] = [];
     try {
       const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
-        query ?? '',
+        String(query ?? ''),
       )}&format=geojson&polygon_geojson=0&addressdetails=1&limit=${limit ?? 5}`;
       const response = await fetch(url);
       const geojson = await response.json();
@@ -328,7 +331,7 @@ const geocoderApi: MaplibreGeocoderApi = {
         });
       }
     } catch (e) {
-      console.error(`Failed to forwardGeocode with error: ${e}`);
+      console.error(`Failed to forwardGeocode with error: ${String(e)}`);
     }
     return {type: 'FeatureCollection', features};
   },
@@ -343,9 +346,9 @@ const layerSwitcher = new LayerSwitcherControl(baseLayers, overlays, {collapsed}
 map.addControl(layerSwitcher, 'top-right');
 
 map.on('load', () => {
+  // Show the default base layer first; a permalink may then switch/augment it.
+  layerSwitcher.activate(DEFAULT_BASE);
   const hash = new Hash(map, layerSwitcher);
-  if (!hash.start()) {
-    layerSwitcher.activate(DEFAULT_BASE);
-  }
+  hash.start();
   hash.save();
 });

@@ -109,7 +109,7 @@ export class LayerSwitcherControl implements IControl {
     if (baseId && this.isBase(baseId)) {
       this.selectBase(baseId);
     }
-    for (const id of [...this.activeOverlays]) {
+    for (const id of Array.from(this.activeOverlays)) {
       if (!overlayIds.includes(id)) {
         this.setOverlay(id, false);
       }

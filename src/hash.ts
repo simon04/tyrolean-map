@@ -22,10 +22,7 @@ export class Hash {
   constructor(
     private map: Map,
     private control: LayerSwitcherControl,
-  ) {
-    this.onHashChange = this.onHashChange.bind(this);
-    this.onMapMove = this.onMapMove.bind(this);
-  }
+  ) {}
 
   /**
    * Start syncing. Applies the state from the current URL if present and returns
@@ -93,15 +90,15 @@ export class Hash {
     this.lastHash = this.formatHash();
   }
 
-  private onMapMove(): void {
+  private onMapMove = (): void => {
     if (this.movingMap) {
       return;
     }
     this.save();
-  }
+  };
 
   // Throttle `hashchange` handling to at most once per `changeDefer` ms.
-  private onHashChange(): void {
+  private onHashChange = (): void => {
     if (this.changeTimeout) {
       return;
     }
@@ -109,7 +106,7 @@ export class Hash {
       this.update();
       this.changeTimeout = null;
     }, this.changeDefer);
-  }
+  };
 
   private update(): void {
     if (location.hash === this.lastHash) {
