@@ -101,6 +101,7 @@ const allMapLayers: Record<string, Layer> = {};
   {id: 'Image_2013_2015', title: 'Orthofoto Tirol: 2013–2015'},
   {id: 'Image_2016_2018', title: 'Orthofoto Tirol: 2016–2018'},
   {id: 'Image_2019_2021', title: 'Orthofoto Tirol: 2019–2021'},
+  {id: 'Image_2022', title: 'Orthofoto Tirol: 2022'},
   {id: 'Image_Aktuell_RGB', title: 'Orthofoto Tirol: aktuell'},
   {
     id: 'Image_Aktuell_CIR',
