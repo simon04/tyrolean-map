@@ -1,37 +1,16 @@
-import {Map, Icon, Layer, TileLayer} from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import {Geocoder as GeocoderControl} from 'leaflet-control-geocoder';
-import 'leaflet-control-geocoder/style.css';
-import {LocateControl} from 'leaflet.locatecontrol';
-import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css';
-import LeafletHash from './leaflet-fullHash';
-import {CollapsableLayerControl} from './leaflet-collapsable-layer-control';
+import maplibregl, {
+  AttributionControl,
+  GeolocateControl,
+  Map,
+  NavigationControl,
+} from 'maplibre-gl';
+import 'maplibre-gl/dist/maplibre-gl.css';
+import MaplibreGeocoder from '@maplibre/maplibre-gl-geocoder';
+import type {CarmenGeojsonFeature, MaplibreGeocoderApi} from '@maplibre/maplibre-gl-geocoder';
+import '@maplibre/maplibre-gl-geocoder/dist/maplibre-gl-geocoder.css';
+import {LayerSwitcherControl, type RasterLayerDef} from './layer-switcher-control';
+import {Hash} from './hash';
 import './style.css';
-
-const map = new Map('map').setView([47.3, 11.3], 9);
-
-map.attributionControl.setPrefix(false);
-const collapsed = window.matchMedia && window.matchMedia('all and (max-width: 700px)').matches;
-const layers = new CollapsableLayerControl({}, {}, {collapsed: collapsed}).addTo(map);
-
-delete (Icon.Default.prototype as any)._getIconUrl;
-import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
-import iconUrl from 'leaflet/dist/images/marker-icon.png';
-import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
-Icon.Default.mergeOptions({
-  iconRetinaUrl,
-  iconUrl,
-  shadowUrl,
-});
-
-new GeocoderControl({
-  position: 'topleft',
-}).addTo(map);
-
-new LocateControl({
-  icon: 'tm-marker',
-  iconLoading: 'tm-marker',
-}).addTo(map);
 
 const attribution = [
   '<a href="https://github.com/simon04/tyrolean-map">Tyrolean Map</a> (Simon Legner)',
@@ -50,46 +29,70 @@ const attributionST_CC0 = [
 ];
 const attributionOsm = '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> (ODbL)';
 
-const allMapLayers: Record<string, Layer> = {};
+function wmsTileUrl(baseUrl: string, layers: string, format?: string): string {
+  const params = new URLSearchParams({
+    SERVICE: 'WMS',
+    REQUEST: 'GetMap',
+    VERSION: '1.1.1',
+    LAYERS: layers,
+    STYLES: '',
+    FORMAT: format ?? 'image/jpeg',
+    TRANSPARENT: 'false',
+    SRS: 'EPSG:3857',
+    WIDTH: '256',
+    HEIGHT: '256',
+  });
+  // The BBOX placeholder must stay un-encoded for MapLibre to substitute it.
+  return `${baseUrl}?${params.toString()}&BBOX={bbox-epsg-3857}`;
+}
 
+const baseLayers: RasterLayerDef[] = [];
+const overlays: RasterLayerDef[] = [];
+
+// Elektronische Karte Tirol (WMTS)
 [
   {id: 'gdi_base_summer', title: 'Elektronische Karte Tirol: Sommer'},
   {id: 'gdi_base_winter', title: 'Elektronische Karte Tirol: Winter'},
-].forEach(({id, title}, idx) => {
+].forEach(({id, title}) => {
   const imprint =
     '<a href="https://www.tirol.gv.at/statistik-budget/tiris/tiris-geodatendienste/impressum-elektronische-karte-tirol/">Elektronische Karte Tirol</a>';
-  const layer = new TileLayer(`https://wmts.kartetirol.at/wmts/${id}/${id}/{z}/{x}/{y}.jpeg80`, {
-    maxZoom: 18,
-    attribution: [...attribution, imprint, attributionOsm].join(', '),
+  baseLayers.push({
+    id,
+    title,
+    source: {
+      type: 'raster',
+      tiles: [`https://wmts.kartetirol.at/wmts/${id}/${id}/{z}/{x}/{y}.jpeg80`],
+      tileSize: 256,
+      maxzoom: 18,
+      attribution: [...attribution, imprint, attributionOsm].join(', '),
+    },
   });
-  idx === 0 && layer.addTo(map);
-  layers.addBaseLayer(layer, title);
-  allMapLayers[id] = layer;
 });
 
+// Gelände Tirol (WMS)
 [
-  {
-    id: 'Image_Schummerung_Gelaendemodell',
-    title: 'Gelände Tirol: Geländemodell',
-  },
-  {
-    id: 'Image_Schummerung_Oberflaechenmodell',
-    title: 'Gelände Tirol: Oberflächenmodell',
-  },
+  {id: 'Image_Schummerung_Gelaendemodell', title: 'Gelände Tirol: Geländemodell'},
+  {id: 'Image_Schummerung_Oberflaechenmodell', title: 'Gelände Tirol: Oberflächenmodell'},
 ].forEach(({id, title}) => {
-  const layer = new TileLayer.WMS(
-    'https://gis.tirol.gv.at/arcgis/services/Service_Public/terrain/MapServer/WMSServer',
-    {
-      layers: id,
-      format: 'image/jpeg',
-      maxZoom: 20,
+  baseLayers.push({
+    id,
+    title,
+    source: {
+      type: 'raster',
+      tiles: [
+        wmsTileUrl(
+          'https://gis.tirol.gv.at/arcgis/services/Service_Public/terrain/MapServer/WMSServer',
+          id,
+        ),
+      ],
+      tileSize: 256,
+      maxzoom: 20,
       attribution: attribution.join(', '),
     },
-  );
-  layers.addBaseLayer(layer, title);
-  allMapLayers[id] = layer;
+  });
 });
 
+// Orthofoto Tirol (WMS)
 // https://gis.tirol.gv.at/arcgis/services/Service_Public/orthofoto/MapServer/WMSServer?request=GetCapabilities&service=WMS
 [
   {id: 'Image_1940', title: 'Orthofoto Tirol: 1940 (Innsbruck)'},
@@ -108,19 +111,25 @@ const allMapLayers: Record<string, Layer> = {};
     title: 'Orthofoto Tirol: <abbr title="photographisches Infrarot">CIR</abbr> aktuell',
   },
 ].forEach(({id, title}) => {
-  const layer = new TileLayer.WMS(
-    'https://gis.tirol.gv.at/arcgis/services/Service_Public/orthofoto/MapServer/WMSServer',
-    {
-      layers: id,
-      format: 'image/jpeg',
-      maxZoom: 20,
+  baseLayers.push({
+    id,
+    title,
+    source: {
+      type: 'raster',
+      tiles: [
+        wmsTileUrl(
+          'https://gis.tirol.gv.at/arcgis/services/Service_Public/orthofoto/MapServer/WMSServer',
+          id,
+        ),
+      ],
+      tileSize: 256,
+      maxzoom: 20,
       attribution: attribution.join(', '),
     },
-  );
-  layers.addBaseLayer(layer, title);
-  allMapLayers[id] = layer;
+  });
 });
 
+// basemap.at (XYZ)
 [
   {id: 'geolandbasemap/normal', title: 'basemap.at', format: 'png'},
   {id: 'bmaphidpi/normal', title: 'basemap.at HiDPI', format: 'jpeg'},
@@ -128,63 +137,59 @@ const allMapLayers: Record<string, Layer> = {};
   {id: 'bmaporthofoto30cm/normal', title: 'basemap.at Orthofoto', format: 'jpg'},
   {id: 'bmapgelaende/grau', title: 'basemap.at Gelände', format: 'jpg'},
 ].forEach(({id, title, format}) => {
-  const layer = new TileLayer(
-    `https://mapsneu.wien.gv.at/basemap/${id}/google3857/{z}/{y}/{x}.${format}`,
-    {
-      subdomains: '1234',
-      maxZoom: 19,
+  baseLayers.push({
+    id,
+    title,
+    source: {
+      type: 'raster',
+      tiles: [`https://mapsneu.wien.gv.at/basemap/${id}/google3857/{z}/{y}/{x}.${format}`],
+      tileSize: 256,
+      maxzoom: 19,
       attribution: [
         'Grundkarte: <a href="https://www.basemap.at/">basemap.at</a>',
         '<a href="https://creativecommons.org/licenses/by/4.0/deed.de">CC BY 4.0</a>',
       ].join(', '),
     },
-  );
-  layers.addBaseLayer(layer, title);
-  allMapLayers[id] = layer;
+  });
 });
 
+// South Tyrol Base Map (WMTS)
 [{id: 'p_bz-BaseMap%3ABasemap-Standard', title: 'South Tyrol Base Map'}].forEach(({id, title}) => {
-  const layer = new TileLayer(
-    `https://geoservices.buergernetz.bz.it/geoserver/gwc/service/wmts/?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${id}&STYLE=default&TILEMATRIXSET=GoogleMapsCompatible&TILEMATRIX=GoogleMapsCompatible%3A{z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg`,
-    {
-      maxZoom: 20,
+  baseLayers.push({
+    id,
+    title,
+    source: {
+      type: 'raster',
+      tiles: [
+        `https://geoservices.buergernetz.bz.it/geoserver/gwc/service/wmts/?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${id}&STYLE=default&TILEMATRIXSET=GoogleMapsCompatible&TILEMATRIX=GoogleMapsCompatible%3A{z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg`,
+      ],
+      tileSize: 256,
+      maxzoom: 20,
       attribution: [...attributionST, attributionOsm].join(', '),
     },
-  );
-  layers.addBaseLayer(layer, title);
-  allMapLayers[id] = layer;
-});
-
-[
-  {
-    id: 'DigitalTerrainModel-0.5m-Hillshade',
-    title: 'Gelände South Tyrol: Geländemodell 0.5m',
-  },
-  {
-    id: 'DigitalTerrainModel-2.5m-Hillshade',
-    title: 'Gelände South Tyrol: Geländemodell',
-    // Hillshade/Schummerung/Ombreggiatura
-  },
-  {
-    id: 'DigitalTerrainModel-2.5m-Exposition',
-    title: 'Gelände South Tyrol: Exposition',
-    // Exposition/Esposizione
-  },
-  {
-    id: 'DigitalTerrainModel-2.5m-Slope',
-    title: 'Gelände South Tyrol: Geländeneigung',
-    // Slope/Hangneigung/Clivometria
-  },
-].forEach(({id, title}) => {
-  const layer = new TileLayer.WMS('https://geoservices1.civis.bz.it/geoserver/p_bz-Elevation/wms', {
-    layers: id,
-    format: 'image/jpeg',
-    attribution: attributionST_CC0.join(', '),
   });
-  layers.addBaseLayer(layer, title);
-  allMapLayers[id] = layer;
 });
 
+// Gelände South Tyrol (WMS)
+[
+  {id: 'DigitalTerrainModel-0.5m-Hillshade', title: 'Gelände South Tyrol: Geländemodell 0.5m'},
+  {id: 'DigitalTerrainModel-2.5m-Hillshade', title: 'Gelände South Tyrol: Geländemodell'},
+  {id: 'DigitalTerrainModel-2.5m-Exposition', title: 'Gelände South Tyrol: Exposition'},
+  {id: 'DigitalTerrainModel-2.5m-Slope', title: 'Gelände South Tyrol: Geländeneigung'},
+].forEach(({id, title}) => {
+  baseLayers.push({
+    id,
+    title,
+    source: {
+      type: 'raster',
+      tiles: [wmsTileUrl('https://geoservices1.civis.bz.it/geoserver/p_bz-Elevation/wms', id)],
+      tileSize: 256,
+      attribution: attributionST_CC0.join(', '),
+    },
+  });
+});
+
+// Orthofoto South Tyrol (WMS)
 [
   {id: 'Aerial-1982-1985-BW', title: 'Orthofoto South Tyrol: 1982–1985'},
   {id: 'Aerial-1992-1997-BW', title: 'Orthofoto South Tyrol: 1992–1997'},
@@ -205,66 +210,83 @@ const allMapLayers: Record<string, Layer> = {};
     title: 'Orthofoto South Tyrol: 2023 <abbr title="photographisches Infrarot">CIR</abbr>',
   },
 ].forEach(({id, title}) => {
-  const layer = new TileLayer.WMS(
-    'https://geoservices.buergernetz.bz.it/mapproxy/p_bz-Orthoimagery/wms',
-    {
-      layers: id,
-      format: 'image/jpeg',
-      maxZoom: 20,
+  baseLayers.push({
+    id,
+    title,
+    source: {
+      type: 'raster',
+      tiles: [
+        wmsTileUrl('https://geoservices.buergernetz.bz.it/mapproxy/p_bz-Orthoimagery/wms', id),
+      ],
+      tileSize: 256,
+      maxzoom: 20,
       attribution: attributionST.join(', '),
     },
-  );
-  layers.addBaseLayer(layer, title);
-  allMapLayers[id] = layer;
+  });
 });
 
-allMapLayers['OSM'] = new TileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 19,
-  attribution: attributionOsm,
+baseLayers.push({
+  id: 'OSM',
+  title: 'OpenStreetMap',
+  source: {
+    type: 'raster',
+    tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
+    tileSize: 256,
+    maxzoom: 19,
+    attribution: attributionOsm,
+  },
 });
-layers.addBaseLayer(allMapLayers['OSM'], 'OpenStreetMap');
 
-allMapLayers['OpenTopoMap'] = new TileLayer('https://tile.opentopomap.org/{z}/{x}/{y}.png', {
-  maxZoom: 19,
-  attribution: [
-    attributionOsm,
-    '<a href="http://viewfinderpanoramas.org">SRTM</a>',
-    'Kartendarstellung: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
-  ].join(', '),
+baseLayers.push({
+  id: 'OpenTopoMap',
+  title: 'OpenTopoMap',
+  source: {
+    type: 'raster',
+    tiles: ['https://tile.opentopomap.org/{z}/{x}/{y}.png'],
+    tileSize: 256,
+    maxzoom: 19,
+    attribution: [
+      attributionOsm,
+      '<a href="http://viewfinderpanoramas.org">SRTM</a>',
+      'Kartendarstellung: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
+    ].join(', '),
+  },
 });
-layers.addBaseLayer(allMapLayers['OpenTopoMap'], 'OpenTopoMap');
 
+// Overlays
 [
-  {
-    id: 'Image_Exposition',
-    title: 'Gelände Tirol: Exposition',
-  },
-  {
-    id: 'Image_Gelaendeneigung_Grad',
-    title: 'Gelände Tirol: Geländeneigung',
-  },
+  {id: 'Image_Exposition', title: 'Gelände Tirol: Exposition'},
+  {id: 'Image_Gelaendeneigung_Grad', title: 'Gelände Tirol: Geländeneigung'},
 ].forEach(({id, title}) => {
-  const layer = new TileLayer.WMS(
-    'https://gis.tirol.gv.at/arcgis/services/Service_Public/terrain/MapServer/WMSServer',
-    {
-      layers: id,
-      format: 'image/jpeg',
-      maxZoom: 20,
+  overlays.push({
+    id,
+    title,
+    source: {
+      type: 'raster',
+      tiles: [
+        wmsTileUrl(
+          'https://gis.tirol.gv.at/arcgis/services/Service_Public/terrain/MapServer/WMSServer',
+          id,
+        ),
+      ],
+      tileSize: 256,
+      maxzoom: 20,
       attribution: [
         ...attribution,
         `<img src="https://gis.tirol.gv.at/arcgis/services/Service_Public/terrain/MapServer/WMSServer?request=GetLegendGraphic%26version=1.3.0%26format=image/png%26layer=${id}">`,
       ].join(', '),
     },
-  );
-  layers.addOverlay(layer, title);
-  allMapLayers[id] = layer;
+  });
 });
 
-allMapLayers['OpenSlopeMap'] = new TileLayer(
-  'https://tileserver{s}.openslopemap.org/OSloOVERLAY_LR_All_16/{z}/{x}/{y}.png',
-  {
-    opacity: 0.7,
-    subdomains: '1234',
+overlays.push({
+  id: 'OpenSlopeMap',
+  title: 'OpenSlopeMap',
+  paint: {'raster-opacity': 0.7},
+  source: {
+    type: 'raster',
+    tiles: ['https://tileserver1.openslopemap.org/OSloOVERLAY_LR_All_16/{z}/{x}/{y}.png'],
+    tileSize: 256,
     attribution:
       '<a href="https://www.openslopemap.org/projekt/lizenzen/">OpenSlopeMap</a> (<a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>)' +
       '<div class="legend">' +
@@ -279,7 +301,69 @@ allMapLayers['OpenSlopeMap'] = new TileLayer(
       '<i style="color:#0000FF">■</i> 55°–90°' +
       '</div>',
   },
-);
-layers.addOverlay(allMapLayers['OpenSlopeMap'], 'OpenSlopeMap');
+});
 
-new LeafletHash(map, allMapLayers);
+const DEFAULT_BASE = baseLayers[0].id;
+
+const map = new Map({
+  container: 'map',
+  style: {version: 8, sources: {}, layers: []},
+  center: [11.3, 47.3],
+  zoom: 8, // Leaflet zoom 9 with 256px tiles
+  attributionControl: false,
+  dragRotate: false,
+});
+
+map.addControl(new NavigationControl({showCompass: false}), 'top-left');
+map.addControl(new GeolocateControl({trackUserLocation: true}), 'top-left');
+map.addControl(new AttributionControl(), 'bottom-right');
+
+// Address search via Nominatim
+const geocoderApi: MaplibreGeocoderApi = {
+  forwardGeocode: async ({query, limit}) => {
+    const features: CarmenGeojsonFeature[] = [];
+    try {
+      const params = new URLSearchParams({
+        q: String(query ?? ''),
+        format: 'geojson',
+        polygon_geojson: '0',
+        addressdetails: '1',
+        limit: String(limit ?? 5),
+      });
+      const response = await fetch(`https://nominatim.openstreetmap.org/search?${params}`);
+      const geojson = await response.json();
+      for (const feature of geojson.features) {
+        const [minX, minY, maxX, maxY] = feature.bbox ?? [];
+        features.push({
+          type: 'Feature',
+          id: String(feature.properties.place_id),
+          geometry: feature.geometry,
+          place_name: feature.properties.display_name,
+          properties: feature.properties,
+          text: feature.properties.display_name,
+          place_type: ['place'],
+          bbox: feature.bbox ? [minX, minY, maxX, maxY] : undefined,
+        });
+      }
+    } catch (e) {
+      console.error(`Failed to forwardGeocode with error: ${String(e)}`);
+    }
+    return {type: 'FeatureCollection', features};
+  },
+};
+map.addControl(
+  new MaplibreGeocoder(geocoderApi, {maplibregl, collapsed: true, marker: true}),
+  'top-left',
+);
+
+const collapsed = window.matchMedia && window.matchMedia('all and (max-width: 700px)').matches;
+const layerSwitcher = new LayerSwitcherControl(baseLayers, overlays, {collapsed});
+map.addControl(layerSwitcher, 'top-right');
+
+map.on('load', () => {
+  // Show the default base layer first; a permalink may then switch/augment it.
+  layerSwitcher.activate(DEFAULT_BASE);
+  const hash = new Hash(map, layerSwitcher);
+  hash.start();
+  hash.save();
+});
