@@ -1,12 +1,17 @@
-import type {IControl, Map, RasterSourceSpecification, RasterLayerSpecification} from 'maplibre-gl';
+import type {AddLayerObject, IControl, Map, SourceSpecification} from 'maplibre-gl';
 
-export interface RasterLayerDef {
+type DistributiveOmit<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never;
+
+export interface LayerDef {
   /** Stable key, used as the MapLibre source/layer id and in the URL hash. */
   id: string;
   /** Human readable label (may contain HTML such as `<abbr>`). */
   title: string;
-  source: RasterSourceSpecification;
-  paint?: RasterLayerSpecification['paint'];
+  source: SourceSpecification;
+  /** Layer spec without `id`/`source`; defaults to `{type: 'raster'}`. */
+  layer?: DistributiveOmit<AddLayerObject, 'id' | 'source'>;
+  /** Called after the source and layer have been added to the map. */
+  onAdded?: (map: Map, id: string) => void;
 }
 
 export interface LayerSwitcherOptions {
@@ -34,8 +39,8 @@ export class LayerSwitcherControl implements IControl {
   onChange?: () => void;
 
   constructor(
-    private baseLayers: RasterLayerDef[],
-    private overlays: RasterLayerDef[],
+    private baseLayers: LayerDef[],
+    private overlays: LayerDef[],
     private options: LayerSwitcherOptions = {},
   ) {}
 
@@ -123,7 +128,7 @@ export class LayerSwitcherControl implements IControl {
 
   // --- internals -------------------------------------------------------------
 
-  private buildSection(defs: RasterLayerDef[], kind: 'base' | 'overlay'): HTMLElement {
+  private buildSection(defs: LayerDef[], kind: 'base' | 'overlay'): HTMLElement {
     const section = document.createElement('div');
     section.className = 'tm-layer-switcher-section';
     for (const def of defs) {
@@ -154,7 +159,7 @@ export class LayerSwitcherControl implements IControl {
     return section;
   }
 
-  private find(id: string): RasterLayerDef | undefined {
+  private find(id: string): LayerDef | undefined {
     return this.baseLayers.find((d) => d.id === id) ?? this.overlays.find((d) => d.id === id);
   }
 
@@ -172,7 +177,7 @@ export class LayerSwitcherControl implements IControl {
       this.map.removeSource(this.activeBase);
     }
     this.activeBase = id;
-    this.addRasterLayer(id, this.firstOverlayId());
+    this.addLayer(id, this.firstOverlayId());
 
     const input = this.inputs.get(id);
     if (input) {
@@ -183,7 +188,7 @@ export class LayerSwitcherControl implements IControl {
   private setOverlay(id: string, enabled: boolean): void {
     const active = this.activeOverlays.has(id);
     if (enabled && !active) {
-      this.addRasterLayer(id); // on top of everything
+      this.addLayer(id); // on top of everything
       this.activeOverlays.add(id);
     } else if (!enabled && active) {
       this.map.removeLayer(id);
@@ -196,16 +201,14 @@ export class LayerSwitcherControl implements IControl {
     }
   }
 
-  private addRasterLayer(id: string, beforeId?: string): void {
+  private addLayer(id: string, beforeId?: string): void {
     const def = this.find(id);
     if (!def) {
       return;
     }
     this.map.addSource(id, def.source);
-    this.map.addLayer(
-      {id, type: 'raster', source: id, ...(def.paint ? {paint: def.paint} : {})},
-      beforeId,
-    );
+    this.map.addLayer({type: 'raster', ...def.layer, id, source: id} as AddLayerObject, beforeId);
+    def.onAdded?.(this.map, id);
   }
 
   private setCollapsed(collapsed: boolean): void {

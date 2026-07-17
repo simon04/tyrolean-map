@@ -68,3 +68,21 @@ body,
 .maplibregl-ctrl-attrib .legend i {
   font-style: normal;
 }
+
+/* Trinkwasserbrunnen popup */
+.tm-popup-tags {
+  border-collapse: collapse;
+  margin-bottom: 4px;
+}
+
+.tm-popup-tags th,
+.tm-popup-tags td {
+  padding: 0 4px 0 0;
+  text-align: left;
+  vertical-align: top;
+  font-weight: normal;
+}
+
+.tm-popup-tags th {
+  color: #666;
+}

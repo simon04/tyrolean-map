@@ -8,8 +8,9 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import MaplibreGeocoder from '@maplibre/maplibre-gl-geocoder';
 import type {CarmenGeojsonFeature, MaplibreGeocoderApi} from '@maplibre/maplibre-gl-geocoder';
 import '@maplibre/maplibre-gl-geocoder/dist/maplibre-gl-geocoder.css';
-import {LayerSwitcherControl, type RasterLayerDef} from './layer-switcher-control';
+import {LayerSwitcherControl, type LayerDef} from './layer-switcher-control';
 import {Hash} from './hash';
+import {trinkwasserbrunnen} from './trinkwasserbrunnen';
 import './style.css';
 
 const attribution = [
@@ -46,8 +47,8 @@ function wmsTileUrl(baseUrl: string, layers: string, format?: string): string {
   return `${baseUrl}?${params.toString()}&BBOX={bbox-epsg-3857}`;
 }
 
-const baseLayers: RasterLayerDef[] = [];
-const overlays: RasterLayerDef[] = [];
+const baseLayers: LayerDef[] = [];
+const overlays: LayerDef[] = [];
 
 // Elektronische Karte Tirol (WMTS)
 [
@@ -282,7 +283,7 @@ baseLayers.push({
 overlays.push({
   id: 'OpenSlopeMap',
   title: 'OpenSlopeMap',
-  paint: {'raster-opacity': 0.7},
+  layer: {type: 'raster', paint: {'raster-opacity': 0.7}},
   source: {
     type: 'raster',
     tiles: ['https://tileserver1.openslopemap.org/OSloOVERLAY_LR_All_16/{z}/{x}/{y}.png'],
@@ -302,6 +303,8 @@ overlays.push({
       '</div>',
   },
 });
+
+overlays.push(trinkwasserbrunnen(attributionOsm));
 
 const DEFAULT_BASE = baseLayers[0].id;
 
