@@ -13,6 +13,11 @@ area(id:3600052343)->.searchArea;
 nwr["amenity"="drinking_water"](area.searchArea);
 out center;`;
 
+const OVERPASS_URL = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(QUERY)}`;
+
+const CACHE_NAME = 'overpass';
+const CACHE_MAX_AGE = 4 * 60 * 60 * 1000;
+
 interface OverpassElement {
   type: 'node' | 'way' | 'relation';
   id: number;
@@ -22,16 +27,36 @@ interface OverpassElement {
   tags?: Record<string, string>;
 }
 
+interface OverpassResponse {
+  elements: OverpassElement[];
+}
+
 let data: Promise<FeatureCollection> | undefined;
+
+/** Fetch the fountains, reusing the cached response for up to `CACHE_MAX_AGE`. */
+async function fetchOverpass(): Promise<OverpassElement[]> {
+  // `caches` is undefined in insecure contexts. It expires nothing by itself,
+  // hence the `date` of the cached response is compared manually.
+  const cache = await globalThis.caches?.open(CACHE_NAME).catch(() => undefined);
+  const cached = await cache?.match(OVERPASS_URL);
+  if (cached && Date.now() - Date.parse(cached.headers.get('date') ?? '') < CACHE_MAX_AGE) {
+    return ((await cached.json()) as OverpassResponse).elements;
+  }
+
+  const response = await fetch(OVERPASS_URL);
+  if (!response.ok) {
+    // Overpass reports overload/timeouts as an HTML document, which would fail to parse as JSON
+    throw new Error(`${response.status} ${response.statusText}`);
+  }
+  const {elements} = (await response.clone().json()) as OverpassResponse;
+  await cache?.put(OVERPASS_URL, response); // only reached once the body parsed as JSON
+  return elements;
+}
 
 /** Fetch the fountains and reduce ways/relations to their center point. */
 function load(): Promise<FeatureCollection> {
-  data ??= fetch('https://overpass-api.de/api/interpreter', {
-    method: 'POST',
-    body: new URLSearchParams({data: QUERY}),
-  })
-    .then((response) => response.json())
-    .then(({elements}: {elements: OverpassElement[]}) => ({
+  data ??= fetchOverpass()
+    .then((elements) => ({
       type: 'FeatureCollection' as const,
       features: elements
         .map((element): Feature | undefined => {
