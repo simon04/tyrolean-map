@@ -124,8 +124,8 @@ function popupContent(osmId: string, tags: Record<string, string>): HTMLElement 
   for (const [key, value] of Object.entries(tags)) {
     if (key === 'name') continue; // already shown as the popup title
     const dt = document.createElement('dt');
-    dt.textContent = key;
     dt.title = key;
+    dt.append(link(`https://wiki.openstreetmap.org/wiki/Key:${encodeURIComponent(key)}`, key));
     const dd = document.createElement('dd');
     dd.title = value; // the entries are truncated via CSS, so expose the full value on hover
     const href = formatterUrl(key, value);
