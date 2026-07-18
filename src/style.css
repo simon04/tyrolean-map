@@ -71,18 +71,22 @@ body,
 
 /* Trinkwasserbrunnen popup */
 .tm-popup-tags {
-  border-collapse: collapse;
-  margin-bottom: 4px;
+  display: grid;
+  /* `minmax(0, …)` lets the value column shrink below its content width, so that it can be truncated */
+  grid-template-columns: 8em minmax(0, 1fr);
+  gap: 0 8px;
+  width: 260px;
+  max-width: 100%;
 }
 
-.tm-popup-tags th,
-.tm-popup-tags td {
-  padding: 0 4px 0 0;
-  text-align: left;
-  vertical-align: top;
-  font-weight: normal;
+.tm-popup-tags dt,
+.tm-popup-tags dd {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.tm-popup-tags th {
+.tm-popup-tags dt {
   color: #666;
 }

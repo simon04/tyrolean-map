@@ -1,7 +1,8 @@
 // Trinkwasserbrunnen (drinking water fountains) from OpenStreetMap, queried live
 // via the Overpass API. The data is fetched once, when the overlay is first shown.
 import type {Feature, FeatureCollection, Point} from 'geojson';
-import {Popup, type GeoJSONSource, type Map} from 'maplibre-gl';
+import {Popup, type GeoJSONSource, type Map as MapGL} from 'maplibre-gl';
+import tag2link from 'tag2link';
 import type {LayerDef} from './layer-switcher-control';
 
 const ID = 'Trinkwasserbrunnen';
@@ -54,15 +55,65 @@ function load(): Promise<FeatureCollection> {
   return data;
 }
 
-function escapeHtml(value: string): string {
-  const div = document.createElement('div');
-  div.textContent = value;
-  return div.innerHTML;
+/** Formatter URL per OSM key, `preferred` entries winning over `normal` ones. */
+const formatterUrls = new Map<string, {url: string; preferred: boolean}>();
+for (const {key, url, rank} of tag2link) {
+  if (rank === 'deprecated') {
+    continue;
+  }
+  const tag = key.replace(/^Key:/, '');
+  const preferred = rank === 'preferred';
+  const previous = formatterUrls.get(tag);
+  if (!previous || (preferred && !previous.preferred)) {
+    formatterUrls.set(tag, {url, preferred});
+  }
+}
+
+/** Resolve a tag to its http(s) formatter URL, if tag2link knows one for the key. */
+function formatterUrl(key: string, value: string): string | undefined {
+  const template = formatterUrls.get(key)?.url;
+  if (!template) {
+    return undefined;
+  }
+  try {
+    // `new URL` normalizes the substituted value, e.g. it percent-encodes spaces
+    const url = new URL(template.replace('$1', value));
+    return url.protocol === 'https:' || url.protocol === 'http:' ? url.toString() : undefined;
+  } catch {
+    return undefined; // the value does not yield a valid URL, e.g. website=example
+  }
+}
+
+function link(href: string, text: string): HTMLAnchorElement {
+  const a = document.createElement('a');
+  a.href = href;
+  a.textContent = text;
+  a.target = '_blank';
+  a.rel = 'noreferrer';
+  return a;
+}
+
+function popupContent(osmId: string, tags: Record<string, string>): HTMLElement {
+  const dl = document.createElement('dl');
+  dl.className = 'tm-popup-tags';
+  for (const [key, value] of Object.entries(tags)) {
+    const dt = document.createElement('dt');
+    dt.textContent = key;
+    dt.title = key;
+    const dd = document.createElement('dd');
+    dd.title = value; // the entries are truncated via CSS, so expose the full value on hover
+    const href = formatterUrl(key, value);
+    dd.append(href ? link(href, value) : value);
+    dl.append(dt, dd);
+  }
+  const content = document.createElement('div');
+  content.append(dl, link(`https://www.openstreetmap.org/${osmId}`, osmId));
+  return content;
 }
 
 let popupsRegistered = false;
 
-function registerPopups(map: Map): void {
+function registerPopups(map: MapGL): void {
   if (popupsRegistered) {
     return;
   }
@@ -73,15 +124,9 @@ function registerPopups(map: Map): void {
       return;
     }
     const {'@id': osmId, ...tags} = feature.properties as Record<string, string>;
-    const rows = Object.entries(tags)
-      .map(([k, v]) => `<tr><th>${escapeHtml(k)}</th><td>${escapeHtml(v)}</td></tr>`)
-      .join('');
-    new Popup()
+    new Popup({maxWidth: 'none'}) // the popup width is governed by .tm-popup-tags
       .setLngLat((feature.geometry as Point).coordinates as [number, number])
-      .setHTML(
-        `<table class="tm-popup-tags">${rows}</table>` +
-          `<a href="https://www.openstreetmap.org/${osmId}" target="_blank" rel="noreferrer">${osmId}</a>`,
-      )
+      .setDOMContent(popupContent(osmId, tags))
       .addTo(map);
   });
   map.on('mouseenter', ID, () => (map.getCanvas().style.cursor = 'pointer'));
