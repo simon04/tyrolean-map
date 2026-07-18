@@ -129,7 +129,10 @@ function popupContent(osmId: string, tags: Record<string, string>): HTMLElement 
     dd.title = value; // the entries are truncated via CSS, so expose the full value on hover
     const href = formatterUrl(key, value);
     dd.append(href ? link(href, value) : value);
-    dl.append(dt, dd);
+    // one `dt`/`dd` pair per line, rendered inline within the row
+    const row = document.createElement('div');
+    row.append(dt, dd);
+    dl.append(row);
   }
   const content = document.createElement('div');
   content.append(dl, link(`https://www.openstreetmap.org/${osmId}`, osmId));
