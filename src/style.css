@@ -70,6 +70,11 @@ body,
 }
 
 /* Trinkwasserbrunnen popup */
+.tm-popup-title {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
 .tm-popup-tags {
   margin: 0;
   width: 260px;

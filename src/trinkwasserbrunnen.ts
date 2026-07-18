@@ -122,6 +122,7 @@ function popupContent(osmId: string, tags: Record<string, string>): HTMLElement 
   const dl = document.createElement('dl');
   dl.className = 'tm-popup-tags';
   for (const [key, value] of Object.entries(tags)) {
+    if (key === 'name') continue; // already shown as the popup title
     const dt = document.createElement('dt');
     dt.textContent = key;
     dt.title = key;
@@ -134,8 +135,11 @@ function popupContent(osmId: string, tags: Record<string, string>): HTMLElement 
     row.append(dt, dd);
     dl.append(row);
   }
+  const title = document.createElement('div');
+  title.className = 'tm-popup-title';
+  title.append(link(`https://www.openstreetmap.org/${osmId}`, tags.name ?? osmId));
   const content = document.createElement('div');
-  content.append(dl, link(`https://www.openstreetmap.org/${osmId}`, osmId));
+  content.append(title, dl);
   return content;
 }
 
