@@ -118,16 +118,22 @@ function registerPopups(map: MapGL): void {
     return;
   }
   popupsRegistered = true;
+  let popup: Popup | undefined;
   map.on('click', ID, (e) => {
     const feature = e.features?.[0];
     if (!feature) {
       return;
     }
     const {'@id': osmId, ...tags} = feature.properties as Record<string, string>;
-    new Popup({maxWidth: 'none'}) // the popup width is governed by .tm-popup-tags
+    popup = new Popup({maxWidth: 'none'}) // the popup width is governed by .tm-popup-tags
       .setLngLat((feature.geometry as Point).coordinates as [number, number])
       .setDOMContent(popupContent(osmId, tags))
       .addTo(map);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      popup?.remove();
+    }
   });
   map.on('mouseenter', ID, () => (map.getCanvas().style.cursor = 'pointer'));
   map.on('mouseleave', ID, () => (map.getCanvas().style.cursor = ''));
