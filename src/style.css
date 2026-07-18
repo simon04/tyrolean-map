@@ -99,5 +99,5 @@ body,
 }
 
 .tm-popup-tags dt::after {
-  content: ' ';
+  content: '\a0'; /* a non-breaking space, so it survives white-space collapsing */
 }

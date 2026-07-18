@@ -94,12 +94,12 @@ for (const {key, url, rank} of tag2link) {
   }
 }
 
-/** Resolve a tag to its http(s) formatter URL, if tag2link knows one for the key. */
+/**
+ * Resolve a tag to its http(s) formatter URL, if tag2link knows one for the key.
+ * Keys without a formatter (e.g. `url`) fall back to the value itself.
+ */
 function formatterUrl(key: string, value: string): string | undefined {
-  const template = formatterUrls.get(key)?.url;
-  if (!template) {
-    return undefined;
-  }
+  const template = formatterUrls.get(key)?.url ?? '$1';
   try {
     // `new URL` normalizes the substituted value, e.g. it percent-encodes spaces
     const url = new URL(template.replace('$1', value));
