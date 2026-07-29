@@ -1,9 +1,5 @@
-import maplibregl, {
-  AttributionControl,
-  GeolocateControl,
-  Map,
-  NavigationControl,
-} from 'maplibre-gl';
+import * as maplibregl from 'maplibre-gl';
+import {AttributionControl, GeolocateControl, Map, NavigationControl} from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import MaplibreGeocoder from '@maplibre/maplibre-gl-geocoder';
 import type {CarmenGeojsonFeature, MaplibreGeocoderApi} from '@maplibre/maplibre-gl-geocoder';
