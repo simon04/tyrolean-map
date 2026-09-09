@@ -22,7 +22,7 @@
   "homepage": "https://github.com/simon04/tyrolean-map#readme",
   "dependencies": {
     "@maplibre/maplibre-gl-geocoder": "^1.7.0",
-    "maplibre-gl": "^6.0.0",
+    "maplibre-gl": "^6.4.1",
     "tag2link": "^2026.6.26"
   },
   "devDependencies": {
